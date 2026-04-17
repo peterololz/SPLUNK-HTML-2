@@ -1,0 +1,1319 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SPLK-1001 Practice Quiz (210 Questions)</title>
+<style>
+  :root {
+    --bg0:#070b12; --bg1:#0b1220; --card: rgba(15,23,42,.72);
+    --text:#e5e7eb; --muted:#94a3b8; --line: rgba(148,163,184,.18);
+    --accent:#60a5fa; --good:#22c55e; --bad:#ef4444; --warn:#f59e0b;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    color:var(--text);
+    background:
+      radial-gradient(1100px 520px at 10% 10%, rgba(96,165,250,.20), transparent 60%),
+      radial-gradient(900px 420px at 90% 15%, rgba(34,197,94,.12), transparent 60%),
+      radial-gradient(900px 520px at 40% 90%, rgba(244,63,94,.10), transparent 55%),
+      linear-gradient(180deg, var(--bg0), var(--bg1));
+    min-height:100vh; padding:28px 18px;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  h1 { margin:0 0 6px 0; font-size: 34px; letter-spacing: .2px; }
+  .sub { margin:0 0 18px 0; color:var(--muted); line-height:1.35; }
+  .pillrow { display:flex; gap:10px; flex-wrap:wrap; margin: 8px 0 18px; }
+  .pill {
+    padding:10px 14px; border:1px solid var(--line);
+    border-radius: 999px; background: rgba(2,6,23,.35);
+    backdrop-filter: blur(8px);
+    display:flex; gap:8px; align-items:center;
+    font-weight:600;
+  }
+  .pill span { color:var(--muted); font-weight:600; }
+  .card {
+    border:1px solid rgba(148,163,184,.18);
+    border-radius: 22px;
+    background: var(--card);
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    backdrop-filter: blur(10px);
+    padding: 18px;
+  }
+  .progressline { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .progressline .muted { color:var(--muted); }
+  .bar {
+    height: 10px; border-radius: 999px; overflow:hidden;
+    background: rgba(148,163,184,.15);
+    border: 1px solid rgba(148,163,184,.14);
+    margin: 10px 0 14px;
+  }
+  .bar > div {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, rgba(96,165,250,.95), rgba(34,197,94,.92));
+    transition: width .25s ease;
+  }
+  .hr { height:1px; background: var(--line); margin: 14px 0; }
+  .qtop { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+  .qnum { color: var(--muted); font-weight:700; }
+  .qtext { font-size: 24px; font-weight:800; line-height:1.25; margin: 2px 0 0; }
+  .hint { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  .opts { margin-top: 12px; display:flex; flex-direction:column; gap:10px; }
+  .opt {
+    display:flex; gap:12px; align-items:flex-start;
+    padding: 12px 14px; border-radius: 14px;
+    border:1px solid rgba(148,163,184,.18);
+    background: rgba(2,6,23,.25);
+    cursor:pointer;
+  }
+  .opt:hover { border-color: rgba(96,165,250,.55); }
+  .opt input { margin-top: 3px; transform: scale(1.05); }
+  .opt .label {
+    width: 28px; height: 28px; border-radius: 999px;
+    display:flex; align-items:center; justify-content:center;
+    font-weight: 900; color: var(--text);
+    border:1px solid rgba(148,163,184,.28);
+    background: rgba(2,6,23,.20);
+    flex: 0 0 auto;
+  }
+  .opt .txt { flex: 1 1 auto; line-height:1.25; }
+  .btnrow { display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px; align-items:center; }
+  button {
+    border-radius: 14px;
+    padding: 10px 14px;
+    border:1px solid rgba(148,163,184,.22);
+    background: rgba(2,6,23,.35);
+    color: var(--text);
+    font-weight:800;
+    cursor:pointer;
+  }
+  button:hover { border-color: rgba(96,165,250,.65); }
+  button.primary {
+    background: rgba(96,165,250,.18);
+    border-color: rgba(96,165,250,.50);
+  }
+  button:disabled { opacity: .5; cursor:not-allowed; }
+  .kbd { display:inline-flex; align-items:center; gap:6px; color: var(--muted); font-size: 13px; }
+  .key {
+    padding: 2px 8px; border-radius: 10px;
+    border:1px solid rgba(148,163,184,.22);
+    background: rgba(2,6,23,.25);
+    font-weight:800; color: var(--text);
+  }
+  .feedback {
+    margin-top: 14px;
+    padding: 14px;
+    border-radius: 16px;
+    border: 1px solid rgba(148,163,184,.20);
+    background: rgba(2,6,23,.28);
+  }
+  .tag {
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 6px 10px; border-radius: 999px; font-weight:900;
+    border: 1px solid rgba(148,163,184,.20);
+  }
+  .tag.good { background: rgba(34,197,94,.14); border-color: rgba(34,197,94,.45); }
+  .tag.bad { background: rgba(239,68,68,.12); border-color: rgba(239,68,68,.45); }
+  .tag.neutral { background: rgba(148,163,184,.10); }
+  .fbtext { margin-top: 10px; color: var(--text); line-height:1.35; }
+  .fbtext .muted { color: var(--muted); }
+  .tinywarn {
+    display:none;
+    margin: 10px 0 0;
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: rgba(245,158,11,.12);
+    border: 1px solid rgba(245,158,11,.45);
+    color: #fde68a;
+    font-weight:700;
+  }
+  .settings {
+    display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .settings label { display:flex; gap:8px; align-items:center; cursor:pointer; }
+  .settings input[type="checkbox"] { transform: scale(1.05); }
+  .modal {
+    position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+    padding: 20px; background: rgba(0,0,0,.55);
+  }
+  .modal .box {
+    width: min(680px, 100%);
+    border-radius: 18px;
+    border: 1px solid rgba(148,163,184,.20);
+    background: rgba(15,23,42,.92);
+    box-shadow: 0 20px 60px rgba(0,0,0,.55);
+    padding: 16px;
+  }
+  .modal h2 { margin: 0 0 6px; font-size: 18px; }
+  .modal p { margin: 0 0 12px; color: var(--muted); line-height:1.35; }
+  .modal .btnrow { margin-top: 8px; }
+  @media (max-width: 520px) {
+    .qtext { font-size: 20px; }
+  }
+
+    /* Mistakes modal (scoped, does NOT affect Load modal) */
+    #mistakesModal, #mistakesPracticeModal{ position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; padding:18px; z-index:9999;}
+    .modal-card{ width:min(980px, 96vw); max-height:88vh; overflow:hidden; background:#0f172a; border:1px solid rgba(255,255,255,.12); border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.35); }
+    .modal-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:14px 16px; border-bottom:1px solid rgba(255,255,255,.10); }
+    .modal-title{ font-weight:700; font-size:18px; }
+    .modal-sub{ opacity:.8; font-size:12px; margin-top:2px; }
+    .modal-actions{ display:flex; flex-wrap:wrap; gap:8px; padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.10); }
+    .modal-body{ padding:14px 16px; overflow:auto; max-height:calc(88vh - 120px); }
+    .mistakes-list{ display:grid; gap:12px; }
+    .mistake-card{ border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px 12px; background:rgba(255,255,255,.03); }
+    .mistake-top{ display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+    .mistake-q{ font-weight:650; }
+    .mistake-meta{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .pill{ display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); font-size:12px; opacity:.95; }
+    .pill.bad{ border-color: rgba(239,68,68,.45); }
+    .pill.good{ border-color: rgba(34,197,94,.45); }
+    .mistake-grid{ display:grid; grid-template-columns:1fr; gap:8px; margin-top:10px; }
+    @media (min-width: 900px){ .mistake-grid{ grid-template-columns:1fr 1fr; } }
+    .mistake-box{ border:1px dashed rgba(255,255,255,.14); border-radius:12px; padding:10px; }
+    .mistake-box b{ font-weight:700; }
+    .mistake-actions{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+    .tiny{ font-size:12px; opacity:.85; }
+
+    /* Options review inside mistakes modal */
+    .opt-review{ display:grid; gap:6px; margin-top:10px; }
+    .opt-item{ display:flex; gap:8px; align-items:flex-start; padding:8px 10px; border-radius:12px;
+      border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.02); }
+    .opt-letter{ min-width:22px; font-weight:800; }
+    .opt-item.correct{ border-color: rgba(70,255,160,.28); background: rgba(70,255,160,.06); }
+    .opt-item.selected-wrong{ border-color: rgba(255,80,80,.28); background: rgba(255,80,80,.07); }
+    .opt-item.selected-correct{ border-color: rgba(70,255,160,.35); background: rgba(70,255,160,.10); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>SPLK-1001 Practice Quiz (210 Questions)</h1>
+    <p class="sub">One question at a time. Question order and answer order are randomized on load. Submit each question for instant feedback. Includes score, save/load, review mistakes, and practice mistakes until all failed ones are corrected.</p>
+
+    <div class="pillrow">
+      <div class="pill"><span>Answered:</span> <b id="answeredPill">0 / 0</b></div>
+      <div class="pill"><span>Score:</span> <b id="scorePill">0% (0/0)</b></div>
+      <div class="pill"><span>Current:</span> <b id="currentPill">1 / 0</b></div>
+          </div>
+
+    <div class="card">
+      <div id="countWarn" class="tinywarn"></div>
+
+      <div class="progressline">
+        <div class="muted"><span>Progress:</span> <b id="progressText">0%</b></div>
+        <div class="muted"><span id="summaryText">0 answered • 0 correct</span></div>
+      </div>
+      <div class="bar"><div id="progressBar"></div></div>
+
+      <div class="hr"></div>
+
+      <div class="qtop">
+        <div>
+          <div class="qnum" id="qNum">Question 1 of 1</div>
+          <div class="qtext" id="qText">Loading…</div>
+          <div class="hint" id="qHint"></div>
+        </div>
+      </div>
+
+      <div class="opts" id="options"></div>
+
+      <div class="feedback" id="feedback" style="display:none;"></div>
+
+      <div class="btnrow">
+        <button id="prevBtn">← Previous</button>
+        <button id="nextBtn">Next →</button>
+        <button id="submitBtn" class="primary">Submit Answer</button>
+        <button id="resetBtn">Reset (reshuffle)</button>
+        <button id="reviewMistakesBtn" class="ghost">Review mistakes</button>
+        <button id="practiceMistakesBtn" class="ghost" title="Navigate only wrong answered questions">Practice mistakes</button>
+
+      </div>
+
+      <div class="settings">
+        <div class="kbd">Shortcuts: <span class="key">←</span> <span class="key">→</span> to navigate • <span class="key">Enter</span> to submit</div>
+        <span style="flex:1 1 auto;"></span>
+        <label><input type="checkbox" id="autosaveToggle" checked/> Auto-save</label>
+        <button id="saveBtn" title="Save your current progress to this browser">Save</button>
+        <button id="loadBtn" title="Load the last saved progress from this browser">Load</button>
+        <button id="clearBtn" title="Clear saved progress">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="loadModal">
+    <div class="box">
+      <h2>Load saved progress?</h2>
+      <p>We found saved progress for this quiz in your browser. Do you want to load it?</p>
+      <div class="btnrow">
+        <button id="modalLoad" class="primary">Load</button>
+        <button id="modalSkip">Start fresh</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+const QUESTIONS = [{"id": 1, "question": "Which search string only returns events from hostWWW3?", "options": [{"label": "A", "text": "host=*"}, {"label": "B", "text": "host=WWW3"}, {"label": "C", "text": "host=WWW*"}, {"label": "D", "text": "Host=WWW3"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 2, "question": "By default, how long does Splunk retain a search job?", "options": [{"label": "A", "text": "10 Minutes"}, {"label": "B", "text": "15 Minutes"}, {"label": "C", "text": "1 Day"}, {"label": "D", "text": "7 Days"}], "answer": ["A"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Search/Extendjoblifetimes"}, {"id": 3, "question": "What must be done before an automatic lookup can be created? (Choose all that apply.)", "options": [{"label": "A", "text": "The lookup command must be used."}, {"label": "B", "text": "The lookup definition must be created."}, {"label": "C", "text": "The lookup file must be uploaded to Splunk."}, {"label": "D", "text": "The lookup file must be verified using the inputlookup command."}], "answer": ["B"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Knowledge/DefineanautomaticlookupinSplunkWeb"}, {"id": 4, "question": "Which of the following Splunk components typically resides on the machines where data originates?", "options": [{"label": "A", "text": "Indexer"}, {"label": "B", "text": "Forwarder"}, {"label": "C", "text": "Search head"}, {"label": "D", "text": "Deployment server"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 5, "question": "What determines the scope of data that appears in a scheduled report?", "options": [{"label": "A", "text": "All data accessible to the User role will appear in the report."}, {"label": "B", "text": "All data accessible to the owner of the report will appear in the\nreport."}, {"label": "C", "text": "All data accessible to all users will appear in the report until the\nnext time the report is run."}, {"label": "D", "text": "The owner of the report can configure permissions so that the\nreport uses either the User role or the owner's profile at run time."}], "answer": ["D"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Report/Managereportpermissions"}, {"id": 6, "question": "When writing searches in Splunk, which of the following is true about Booleans?", "options": [{"label": "A", "text": "They must be lowercase."}, {"label": "B", "text": "They must be uppercase."}, {"label": "C", "text": "They must be in quotations."}, {"label": "D", "text": "They must be in parentheses."}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 7, "question": "Which of the following searches would return events with failure in index netfw or warn\nor critical in index netops?", "options": [{"label": "A", "text": "(index=netfw failure) AND index=netops warn OR critical"}, {"label": "B", "text": "(index=netfw failure) OR (index=netops (warn OR critical))"}, {"label": "C", "text": "(index=netfw failure) AND (index=netops (warn OR critical))"}, {"label": "D", "text": "(index=netfw failure) OR index=netops OR (warn OR critical)"}], "answer": ["B"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Search/Aboutsubsearches"}, {"id": 8, "question": "Select the answer that displays the accurate placing of the pipe in the following search string:\nindex=security sourcetype=access_* status=200 stats count by price", "options": [{"label": "A", "text": "index=security sourcetype=access_* status=200 stats | count by price"}, {"label": "B", "text": "index=security sourcetype=access_* status=200 | stats count by price"}, {"label": "C", "text": "index=security sourcetype=access_* status=200 | stats count | by price"}, {"label": "D", "text": "index=security sourcetype=access_* | status=200 | stats count by price"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 9, "question": "Which of the following constraints can be used with the top command?", "options": [{"label": "A", "text": "limit"}, {"label": "B", "text": "useperc"}, {"label": "C", "text": "addtotals"}, {"label": "D", "text": "fieldcount"}], "answer": ["A"], "explanation": "", "reference": "https://answers.splunk.com/answers/339141/how-to-use-top-command-or-stats-with-sort-results.html"}, {"id": 10, "question": "When editing a dashboard, which of the following are possible options? (Choose all that apply.)", "options": [{"label": "A", "text": "Add an output."}, {"label": "B", "text": "Export a dashboard panel."}, {"label": "C", "text": "Modify the chart type displayed in a dashboard panel."}, {"label": "D", "text": "Drag a dashboard panel to a different location on the dashboard."}], "answer": ["C", "D"], "explanation": "", "reference": ""}, {"id": 11, "question": "When running searches, command modifiers in the search string are displayed in what color?", "options": [{"label": "A", "text": "Red"}, {"label": "B", "text": "Blue"}, {"label": "C", "text": "Orange"}, {"label": "D", "text": "Highlighted"}], "answer": ["C"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Search/Parsingsearches"}, {"id": 12, "question": "Which of the following represents the Splunk recommended naming convention for\ndashboards?", "options": [{"label": "A", "text": "Description_Group_Object"}, {"label": "B", "text": "Group_Description_Object"}, {"label": "C", "text": "Group_Object_Description"}, {"label": "D", "text": "Object_Group_Description"}], "answer": ["C"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Knowledge/Developnamingconventionsforknowledgeobjecttitles"}, {"id": 13, "question": "How can search results be kept longer than 7 days?", "options": [{"label": "A", "text": "By scheduling a report."}, {"label": "B", "text": "By creating a link to the job."}, {"label": "C", "text": "By changing the job settings."}, {"label": "D", "text": "By changing the time range picker to more than 7 days."}], "answer": ["C"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Search/Extendjoblifetimes"}, {"id": 14, "question": "Which of the following is a Splunk search best practice?", "options": [{"label": "A", "text": "Filter as early as possible."}, {"label": "B", "text": "Never specify more than one index."}, {"label": "C", "text": "Include as few search terms as possible."}, {"label": "D", "text": "Use wildcards to return more search results."}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 15, "question": "When looking at a dashboard panel that is based on a report, which of the following is true?", "options": [{"label": "A", "text": "You can modify the search string in the panel, and you can change and\nconfigure the visualization."}, {"label": "B", "text": "You can modify the search string in the panel, but you cannot change and\nconfigure the visualization."}, {"label": "C", "text": "You cannot modify the search string in the panel, but you can change and\nconfigure the visualization."}, {"label": "D", "text": "You cannot modify the search string in the panel, and you cannot change and\nconfigure the visualization."}], "answer": ["C"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Viz/WorkingWithDashboardPanels"}, {"id": 16, "question": "Which of the following are common constraints of the top command?", "options": [{"label": "A", "text": "limit, count"}, {"label": "B", "text": "limit, showpercent"}, {"label": "C", "text": "limits, countfield"}, {"label": "D", "text": "showperc, countfield"}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 17, "question": "When displaying results of a search, which of the following is true about line charts?", "options": [{"label": "A", "text": "Line charts are optimal for single and multiple series."}, {"label": "B", "text": "Line charts are optimal for single series when using Fast mode."}, {"label": "C", "text": "Line charts are optimal for multiple series with 3 or more columns."}, {"label": "D", "text": "Line charts are optimal for multiseries searches with at least 2 or more\ncolumns."}], "answer": ["C"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Viz/LineAreaCharts"}, {"id": 18, "question": "How are events displayed after a search is executed?", "options": [{"label": "A", "text": "In chronological order."}, {"label": "B", "text": "Randomly by default."}, {"label": "C", "text": "In reverse chronological order."}, {"label": "D", "text": "Alphabetically according to field name."}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 19, "question": "Which of the following is true about user account settings and preferences?", "options": [{"label": "A", "text": "Search & Reporting is the only app that can be set as the default application."}, {"label": "B", "text": "Full names can only be changed by accounts with a Power User or Admin\nrole."}, {"label": "C", "text": "Time zones are automatically updated based on the setting of the computer\naccessing Splunk."}, {"label": "D", "text": "Full name, time zone, and default app can be defined by clicking the login\nname in the Splunk bar."}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 20, "question": "What is a primary function of a scheduled report?", "options": [{"label": "A", "text": "Auto-detect changes in performance."}, {"label": "B", "text": "Auto-generated PDF reports of overall data trends."}, {"label": "C", "text": "Regularly scheduled archiving to keep disk space use low."}, {"label": "D", "text": "Triggering an alert in your Splunk instance when certain\nconditions are met."}], "answer": ["D"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Report/Schedulereports"}, {"id": 21, "question": "After running a search, what effect does clicking and dragging across the timeline have?", "options": [{"label": "A", "text": "Executes a new search."}, {"label": "B", "text": "Filters current search results."}, {"label": "C", "text": "Moves to past or future events."}, {"label": "D", "text": "Expands the time range of the search."}], "answer": ["C"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Search/Usethetimeline"}, {"id": 22, "question": "Which command is used to review the contents of a specified static lookup file?", "options": [{"label": "A", "text": "lookup"}, {"label": "B", "text": "csvlookup"}, {"label": "C", "text": "inputlookup"}, {"label": "D", "text": "outputlookup"}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 23, "question": "What must be done in order to use a lookup table in Splunk?", "options": [{"label": "A", "text": "The lookup must be configured to run automatically."}, {"label": "B", "text": "The contents of the lookup file must be copied and pasted into\nthe search bar."}, {"label": "C", "text": "The lookup file must be uploaded to Splunk and a lookup\ndefinition must be created."}, {"label": "D", "text": "The lookup file must be uploaded to the etc/apps/lookups\nfolder for automatic ingestion."}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 24, "question": "When sorting on multiple fields with the sort command, what delimiter can be used between\nthe field names in the search?", "options": [{"label": "A", "text": "|"}, {"label": "B", "text": "$"}, {"label": "C", "text": "!"}, {"label": "D", "text": ","}], "answer": ["D"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/SearchReference/Sort"}, {"id": 25, "question": "Which time range picker configuration would return real-time events for the past 30 seconds?", "options": [{"label": "A", "text": "Preset - Relative: 30-seconds ago"}, {"label": "B", "text": "Relative - Earliest: 30-seconds ago, Latest: Now"}, {"label": "C", "text": "Real-time - Earliest: 30-seconds ago, Latest: Now"}, {"label": "D", "text": "Advanced - Earliest: 30-seconds ago, Latest: Now"}], "answer": ["C"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Search/Selecttimerangestoapply"}, {"id": 26, "question": "What is the correct syntax to count the number of events containing a vendor_action field?", "options": [{"label": "A", "text": "count stats vendor_action"}, {"label": "B", "text": "count stats (vendor_action)"}, {"label": "C", "text": "stats count (vendor_action)"}, {"label": "D", "text": "stats vendor_action (count)"}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 27, "question": "What is one benefit of creating dashboard panels from reports?", "options": [{"label": "A", "text": "Any newly created dashboard will include that report."}, {"label": "B", "text": "There are no benefits to creating dashboard panels from\nreports."}, {"label": "C", "text": "It makes the dashboard more efficient because it only has to\nrun one search string."}, {"label": "D", "text": "Any change to the underlying report will affect every\ndashboard that utilizes that report."}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 28, "question": "By default, which of the following fields would be listed in the fields sidebar under interesting Fields?", "options": [{"label": "A", "text": "host"}, {"label": "B", "text": "index"}, {"label": "C", "text": "source"}, {"label": "D", "text": "sourcetype"}], "answer": ["B"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/9.0.0/SearchTutorial/Aboutthesearchapp"}, {"id": 29, "question": "Which of the following statements about case sensitivity is true?", "options": [{"label": "A", "text": "Both field names and field values ARE case sensitive."}, {"label": "B", "text": "Field names ARE case sensitive; field values are NOT."}, {"label": "C", "text": "Field values ARE case sensitive; field names ARE NOT."}, {"label": "D", "text": "Both field names and field values ARE NOT case sensitive."}], "answer": ["B"], "explanation": "", "reference": "https://answers.splunk.com/answers/65/are-field-values-case-sensitive.html"}, {"id": 30, "question": "What does the rare command do?", "options": [{"label": "A", "text": "Returns the least common field values of a given field in the results."}, {"label": "B", "text": "Returns the most common field values of a given field in the results."}, {"label": "C", "text": "Returns the top 10 field values of a given field in the results."}, {"label": "D", "text": "Returns the lowest 10 field values of a given field in the results."}], "answer": ["A"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/SearchReference/Rare"}, {"id": 31, "question": "When an alert action is configured to run a script, Splunk must be able to locate the script.\nWhich is one of the directories Splunk will look in to find the script?", "options": [{"label": "A", "text": "$SPLUNK_HOME/bin/scripts"}, {"label": "B", "text": "$SPLUNK_HOME/etc/scripts"}, {"label": "C", "text": "$SPLUNK_HOME/bin/etc/scripts"}, {"label": "D", "text": "$SPLUNK_HOME/etc/scripts/bin"}], "answer": ["A"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Alert/Configuringscriptedalerts"}, {"id": 32, "question": "Which Boolean operator is always implied between two search terms, unless otherwise specified?", "options": [{"label": "A", "text": "OR"}, {"label": "B", "text": "NOT"}, {"label": "C", "text": "AND"}, {"label": "D", "text": "XOR"}], "answer": ["C"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Search/Booleanexpressions"}, {"id": 33, "question": "What does the values function of the stats command do?", "options": [{"label": "A", "text": "Lists all values of a given field."}, {"label": "B", "text": "Lists unique values of a given field."}, {"label": "C", "text": "Returns a count of unique values for a given field."}, {"label": "D", "text": "Returns the number of events that match the search."}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 34, "question": "Which stats command function provides a count of how many unique values exist for a given field in\nthe result set?", "options": [{"label": "A", "text": "dc(field)"}, {"label": "B", "text": "count(field)"}, {"label": "C", "text": "count-by(field)"}, {"label": "D", "text": "distinct-count(field)"}], "answer": ["A"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Search/Usethestatscommandandfunctions"}, {"id": 35, "question": "A collection of items containing things such as data inputs, UI elements, and knowledge objects\nis known as what?", "options": [{"label": "A", "text": "An app"}, {"label": "B", "text": "JSON"}, {"label": "C", "text": "A role"}, {"label": "D", "text": "An enhanced solution"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 36, "question": "Which statement is true about Splunk alerts?", "options": [{"label": "A", "text": "Alerts are based on searches that are either run on a scheduled interval or in real-time."}, {"label": "B", "text": "Alerts are based on searches and when triggered will only send an email notification."}, {"label": "C", "text": "Alerts are based on searches and require cron to run on scheduled interval."}, {"label": "D", "text": "Alerts are based on searches that are run exclusively as real-time."}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 37, "question": "What is the purpose of using a by clause with the stats command?", "options": [{"label": "A", "text": "To group the results by one or more fields."}, {"label": "B", "text": "To compute numerical statistics on each field."}, {"label": "C", "text": "To specify how the values in a list are delimited."}, {"label": "D", "text": "To partition the input data based on the split-by fields."}], "answer": ["A"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/SearchReference/"}, {"id": 38, "question": "How do you add or remove fields from search results?", "options": [{"label": "A", "text": "Use field +to add and field -to remove."}, {"label": "B", "text": "Use table +to add and table -to remove."}, {"label": "C", "text": "Use fields +to add and fields \"\"to remove."}, {"label": "D", "text": "Use fields Plus to add and fields Minus to remove."}], "answer": ["C"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/SearchReference/Fields"}, {"id": 39, "question": "A field exists in search results, but isn't being displayed in the fields sidebar.\nHow can it be added to the fields sidebar?", "options": [{"label": "A", "text": "Click All Fields and select the field to add it to Selected Fields."}, {"label": "B", "text": "Click Interesting Fields and select the field to add it to Selected Fields."}, {"label": "C", "text": "Click Selected Fields and select the field to add it to Interesting Fields."}, {"label": "D", "text": "This scenario isn't possible because all fields returned from a search always\nappear in the fields sidebar."}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 40, "question": "In the fields sidebar, which character denotes alphanumeric field values?", "options": [{"label": "A", "text": "#"}, {"label": "B", "text": "%"}, {"label": "C", "text": "a"}, {"label": "D", "text": "a#"}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 41, "question": "What is the main requirement for creating visualizations using the Splunk UI?", "options": [{"label": "A", "text": "Your search must transform event data into Excel file format first."}, {"label": "B", "text": "Your search must transform event data into XML formatted data first."}, {"label": "C", "text": "Your search must transform event data into statistical data tables first."}, {"label": "D", "text": "Your search must transform event data into JSON formatted data first."}], "answer": ["C"], "explanation": "When creating a visualization, you can check the Statistics table after running a search to make\nsure that result fields are generated correctly. The number and order of Statistics table columns\nshow you the data structure that a search generated.", "reference": ""}, {"id": 42, "question": "What syntax is used to link key/value pairs in search strings?", "options": [{"label": "A", "text": "action+purchase"}, {"label": "B", "text": "action=purchase"}, {"label": "C", "text": "action | purchase"}, {"label": "D", "text": "action equal purchase"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 43, "question": "What user interface component allows for time selection?", "options": [{"label": "A", "text": "Time summary"}, {"label": "B", "text": "Time range picker"}, {"label": "C", "text": "Search time picker"}, {"label": "D", "text": "Data source time statistics"}], "answer": ["B"], "explanation": "Time range picker : A tool to select and define the time range of a search when using Splunk Web. In the Search and\nReporting app, the time range picker appears as a menu at the end of the search bar. You can also define time range\npickers with custom sets of time ranges for forms in views and dashboards.\nThe time range picker lets you run a search for a preset specified time period, such as Last 15\nminutes or Yesterday. You can also use the time range picker to define your own custom time range for a search or\nset up a data collection window for a real-time search.", "reference": ""}, {"id": 44, "question": "Which of the following searches will return results where fail, 400, and error exist in every event?", "options": [{"label": "A", "text": "error AND (fail AND 400)"}, {"label": "B", "text": "error OR (fail and 400)"}, {"label": "C", "text": "error AND (fail OR 400)"}, {"label": "D", "text": "error OR fail OR 400"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 45, "question": "When placed early in a search, which command is most effective at reducing search execution\ntime?", "options": [{"label": "A", "text": "dedup"}, {"label": "B", "text": "rename"}, {"label": "C", "text": "sort D. fields +"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 46, "question": "Which of the following is the most efficient filter for running searches in Splunk?", "options": [{"label": "A", "text": "Time"}, {"label": "B", "text": "Fast mode"}, {"label": "C", "text": "Sourcetype"}, {"label": "D", "text": "Selected Fields"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 47, "question": "How does Splunk determine which fields to extract from data?", "options": [{"label": "A", "text": "Splunk only extracts the most interesting data from the last 24 hours."}, {"label": "B", "text": "Splunk only extracts fields users have manually specified in their data."}, {"label": "C", "text": "Splunk automatically extracts any fields that generate interesting visualizations."}, {"label": "D", "text": "Splunk automatically discovers many fields based on sourcetype and key/value pairs found in\nthe data."}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 48, "question": "Which of the following file types is an option for exporting Splunk search results?", "options": [{"label": "A", "text": "PDF"}, {"label": "B", "text": "JSON"}, {"label": "C", "text": "XLS"}, {"label": "D", "text": "RTF"}], "answer": ["B"], "explanation": "Splunk search results can be returned in a variety of formats including XML, JSON, and CSV. To make it easier to\nstream search results in XML format, they are returned as a stream of XML fragments, not as a single XML\ndocument. The results module supports incrementally reading one result record at a time from such a results\nstream. This module also provides a friendly iterator-based interface for accessing search results while avoiding\nbuffering the result set, which can be very large.", "reference": ""}, {"id": 49, "question": "What syntax is used to link key/value pairs in search strings?", "options": [{"label": "A", "text": "Parentheses"}, {"label": "B", "text": "@ or # symbols"}, {"label": "C", "text": "Quotation marks"}, {"label": "D", "text": "Relational operators such as =, <, or >"}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 50, "question": "Which search string returns a filed containing the number of matching events and names that\nfield Event Count?", "options": [{"label": "A", "text": "index=security failure | stats sum as \"Event Count\""}, {"label": "B", "text": "index=security failure | stats count as \"Event Count\""}, {"label": "C", "text": "index=security failure | stats count by \"Event Count\""}, {"label": "D", "text": "index=security failure | stats dc(count) as \"Event Count\""}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 51, "question": "Which search would return events from the access_combined sourcetype?", "options": [{"label": "A", "text": "Sourcetype=access_combined"}, {"label": "B", "text": "Sourcetype=Access_Combined"}, {"label": "C", "text": "sourcetype=Access_Combined"}, {"label": "D", "text": "SOURCETYPE=access_combined"}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 52, "question": "Which of the following index searches would provide the most efficient search performance?", "options": [{"label": "A", "text": "index=*"}, {"label": "B", "text": "index=web OR index=s*"}, {"label": "C", "text": "(index=web OR index=sales)"}, {"label": "D", "text": "*index=sales AND index=web*"}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 53, "question": "What is a suggested Splunk best practice for naming reports?", "options": [{"label": "A", "text": "Reports are best named using many numbers so they can be more easily sorted."}, {"label": "B", "text": "Use a consistent naming convention so they are easily separated by characteristics such as group\nand object."}, {"label": "C", "text": "Name reports as uniquely as possible with no overlap to differentiate them from one another."}, {"label": "D", "text": "Any naming convention is fine as long as you keep an external spreadsheet to keep track."}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 54, "question": "In a deployment with multiple indexes, what will happen when a search is run and an index\nis not specified in the search string?", "options": [{"label": "A", "text": "No events will be returned."}, {"label": "B", "text": "Splunk will prompt you to specify an index."}, {"label": "C", "text": "All non-indexed events to which the user has access will be returned."}, {"label": "D", "text": "Events from every index searched by default to which the user has access will be\nreturned."}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 55, "question": "When looking at a statistics table, what is one way to drill down to see the\nunderlying events?", "options": [{"label": "A", "text": "Creating a pivot table."}, {"label": "B", "text": "Clicking on the visualizations tab."}, {"label": "C", "text": "Viewing your report in a dashboard."}, {"label": "D", "text": "Clicking on any field value in the table."}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 56, "question": "In the Splunk interface, the list of alerts can be filtered based on which characteristics?", "options": [{"label": "A", "text": "App, Owner, Severity, and Type"}, {"label": "B", "text": "App, Owner, Priority, and Status"}, {"label": "C", "text": "App, Dashboard, Severity, and Type"}, {"label": "D", "text": "App, Time Window, Type, and Severity"}], "answer": ["D"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Alert/Reviewtriggeredalerts"}, {"id": 57, "question": "What are the steps to schedule a report?", "options": [{"label": "A", "text": "After saving the report, click Schedule."}, {"label": "B", "text": "After saving the report, click Event Type."}, {"label": "C", "text": "After saving the report, click Scheduling."}, {"label": "D", "text": "After saving the report, click Dashboard Panel."}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 58, "question": "In the fields sidebar, what indicates that a field is numeric?", "options": [{"label": "A", "text": "A number to the right of the field name."}, {"label": "B", "text": "A # symbol to the left of the field name."}, {"label": "C", "text": "A lowercase n to the left of the field name."}, {"label": "D", "text": "A lowercase n to the right of the field name."}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 59, "question": "Which of the following are functions of the stats command?", "options": [{"label": "A", "text": "count, sum, add"}, {"label": "B", "text": "count, sum, less"}, {"label": "C", "text": "sum, avg, values"}, {"label": "D", "text": "sum, values, table"}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 60, "question": "At index time, in which field does Splunk store the timestamp value?", "options": [{"label": "A", "text": "time"}, {"label": "B", "text": "_time"}, {"label": "C", "text": "EventTime"}, {"label": "D", "text": "timestamp"}], "answer": ["B"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Data/HowSplunkextractstimestamps"}, {"id": 61, "question": "Which of the following is a best practice when writing a search string?", "options": [{"label": "A", "text": "Include all formatting commands before any search terms."}, {"label": "B", "text": "Include at least one function as this is a search requirement."}, {"label": "C", "text": "Include the search terms at the beginning of the search string."}, {"label": "D", "text": "Avoid using formatting clauses, as they add too much overhead."}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 62, "question": "What type of search can be saved as a report?", "options": [{"label": "A", "text": "Any search can be saved as a report."}, {"label": "B", "text": "Only searches that generate visualizations."}, {"label": "C", "text": "Only searches containing a transforming command."}, {"label": "D", "text": "Only searches that generate statistics or visualizations."}], "answer": ["A"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.3.1/SearchTutorial/Aboutsavingandsharingreports#Save_a\n_search_as_a_report"}, {"id": 63, "question": "What can be included in the All Fields option in the sidebar?", "options": [{"label": "A", "text": "Dashboards"}, {"label": "B", "text": "Metadata only"}, {"label": "C", "text": "Non-interesting fields"}, {"label": "D", "text": "Field descriptions"}], "answer": ["D"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.3.1/Knowledge/\nExtractfieldsinteractivelywithIFX#Access_the_field_extractor_from_the_All_Fields_dialog_box"}, {"id": 64, "question": "When viewing the results of a search, what is an Interesting Field?", "options": [{"label": "A", "text": "A field that appears in any event."}, {"label": "B", "text": "A field that appears in every event."}, {"label": "C", "text": "A field that appears in the top 10 events."}, {"label": "D", "text": "A field that appears in at least 20% of the events."}], "answer": ["D"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.3.1/SearchTutorial/Usefieldstosearch"}, {"id": 65, "question": "When a Splunk search generates calculated data that appears in the Statistics tab, in what formats\ncan the results be exported?", "options": [{"label": "A", "text": "CSV, JSON, PDF"}, {"label": "B", "text": "CSV, XML, JSON"}, {"label": "C", "text": "Raw Events, XML, JSON"}, {"label": "D", "text": "Raw Events, CSV, XML, JSON"}], "answer": ["B"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.3.1/Search/Exportsearchresults"}, {"id": 66, "question": "Which search matches the events containing the terms \"error\" and \"fail\"?", "options": [{"label": "A", "text": "index=security Error Fail"}, {"label": "B", "text": "index=security error OR fail"}, {"label": "C", "text": "index=security \"error failure\""}, {"label": "D", "text": "index=security NOT error NOT fail"}], "answer": ["A"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.3.1/SearchReference/Search"}, {"id": 67, "question": "Which of the following is an option after clicking an item in search results?", "options": [{"label": "A", "text": "Saving the item to a report."}, {"label": "B", "text": "Adding the item to the search."}, {"label": "C", "text": "Adding the item to a dashboard."}, {"label": "D", "text": "Saving the Search to a JSON file."}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 68, "question": "Which of the following fields is stored with the events in the index?", "options": [{"label": "A", "text": "user"}, {"label": "B", "text": "source"}, {"label": "C", "text": "location"}, {"label": "D", "text": "sourceIp"}], "answer": ["B"], "explanation": "", "reference": "https://answers.splunk.com/answers/609626/is-there-a-way-to-check-if-makeresults-stored-the.html"}, {"id": 69, "question": "Which of the following is the recommended way to create multiple\ndashboards displaying data from the same search?", "options": [{"label": "A", "text": "Save the search as a report and use it in multiple dashboards as needed."}, {"label": "B", "text": "Save the search as a dashboard panel for each dashboard that needs the data."}, {"label": "C", "text": "Save the search as a scheduled alert and use it in multiple dashboards as needed."}, {"label": "D", "text": "Export the results of the search to an XML file and use the file as the basis of the dashboards."}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 70, "question": "What does the following specified time range do?\nearliest=-72h@h latest=@d", "options": [{"label": "A", "text": "Look back 3 days ago and prior."}, {"label": "B", "text": "Look back 72 hours, up to one day ago."}, {"label": "C", "text": "Look back 72 hours, up to the end of today."}, {"label": "D", "text": "Look back from 3 days ago, up to the beginning of today."}], "answer": ["C"], "explanation": "", "reference": "https://answers.splunk.com/answers/149904/find-earliest-and-latest-event-per-day-for-a-time-range.html"}, {"id": 71, "question": "Which events will be returned by the following search string? host=www3 status=503", "options": [{"label": "A", "text": "All events that either have a host of www3 or a status of 503."}, {"label": "B", "text": "All events with a host of www3 that also have a status of 503."}, {"label": "C", "text": "We need more information; we cannot tell without knowing the time range."}, {"label": "D", "text": "We need more information; a search cannot be run without specifying an index."}], "answer": ["B"], "explanation": "", "reference": "https://answers.splunk.com/answers/617772/why-am-i-getting-a-http-503-error-when-using-threa.html"}, {"id": 72, "question": "What does the stats command do?", "options": [{"label": "A", "text": "Automatically correlates related fields."}, {"label": "B", "text": "Converts field values into numerical values."}, {"label": "C", "text": "Calculates statistics on data that matches the search criteria."}, {"label": "D", "text": "Analyzes numerical fields for their ability to predict another\ndiscrete field."}], "answer": ["C"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.3.1/SearchReference/Stats"}, {"id": 73, "question": "Which is primary function of the timeline located under the search bar?", "options": [{"label": "A", "text": "To differentiate between structured and unstructured events in the data."}, {"label": "B", "text": "To sort the events returned by the search command in chronological order."}, {"label": "C", "text": "To zoom in and zoom out, although this does not change the scale of the chart."}, {"label": "D", "text": "To show peaks and/or valleys in the timeline, which can indicate spikes in activity or\ndowntime."}], "answer": ["D"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.3.1/SearchTutorial/Startsearching"}, {"id": 74, "question": "What can be configured using the Edit Job Settings menu?", "options": [{"label": "A", "text": "Export the result to CSV format."}, {"label": "B", "text": "Add the Job results to a dashboard."}, {"label": "C", "text": "Schedule the Job to re-run in 10 minutes."}, {"label": "D", "text": "Change Job Lifetime from 10 minutes to 7 days."}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 75, "question": "Which command is used to validate a lookup file?", "options": [{"label": "A", "text": "| lookup products.csv"}, {"label": "B", "text": "inputlookup products.csv"}, {"label": "C", "text": "| inputlookup products.csv"}, {"label": "D", "text": "| lookup_definition products.csv"}], "answer": ["C"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.3.1/SearchReference/Inputlookup"}, {"id": 76, "question": "Which statement is true about the top command?", "options": [{"label": "A", "text": "It returns the top 10 results."}, {"label": "B", "text": "It displays the output in table format."}, {"label": "C", "text": "It returns the count and percent columns per row."}, {"label": "D", "text": "All of the above."}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 77, "question": "How can another user gain access to a saved report?", "options": [{"label": "A", "text": "The owner of the report can edit permissions from the Edit dropdown."}, {"label": "B", "text": "Only users with an Admin or Power User role can access other users' reports."}, {"label": "C", "text": "Anyone can access any reports marked as public within a shared Splunk deployment."}, {"label": "D", "text": "The owner of the report must clone the original report and save it to their user account."}], "answer": ["A"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.3.1/Report/Managereportpermissions"}, {"id": 78, "question": "What is the primary use for the rare command?", "options": [{"label": "A", "text": "To sort field values in descending order."}, {"label": "B", "text": "To return only fields containing five of fewer values."}, {"label": "C", "text": "To find the least common values of a field in a dataset."}, {"label": "D", "text": "To find the fields with the fewest number of values across a dataset."}], "answer": ["C"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.3.1/SearchReference/Rare"}, {"id": 79, "question": "What happens when a field is added to the Selected Fields list in the fields sidebar?", "options": [{"label": "A", "text": "Splunk will re-run the search job in Verbose Mode to prioritize the new Selected Field."}, {"label": "B", "text": "Splunk will highlight related fields as a suggestion to add them to the Selected Fields list."}, {"label": "C", "text": "Custom selections will replace the Interesting Fields that Splunk populated into the list at search\ntime."}, {"label": "D", "text": "The selected field and its corresponding values will appear underneath the events in the search\nresults."}], "answer": ["D"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.3.1/SearchTutorial/Usefieldstosearch"}, {"id": 80, "question": "By default, which of the following is a Selected Field?", "options": [{"label": "A", "text": "action"}, {"label": "B", "text": "clientip"}, {"label": "C", "text": "categoryId"}, {"label": "D", "text": "sourcetype"}], "answer": ["D"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.3.1/SearchTutorial/Usefieldstosearch#Specify_additional\n_selected_fields"}, {"id": 81, "question": "According to Splunk best practices, which placement of the wildcard results\nin the most efficient search?", "options": [{"label": "A", "text": "f*il"}, {"label": "B", "text": "*fail"}, {"label": "C", "text": "fail*"}, {"label": "D", "text": "*fail*"}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 82, "question": "Which command automatically returns percent and count columns when executing searches?", "options": [{"label": "A", "text": "top"}, {"label": "B", "text": "stats"}, {"label": "C", "text": "table"}, {"label": "D", "text": "percent"}], "answer": ["A"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.3.1/Search/Aboutsubsearches"}, {"id": 83, "question": "Which of the following describes lookup files?", "options": [{"label": "A", "text": "Lookup fields cannot be used in searches."}, {"label": "B", "text": "Lookups contain static data available in the index."}, {"label": "C", "text": "Lookups add more fields to results returned by a search."}, {"label": "D", "text": "Lookups pull data at index time and add them to search results."}], "answer": ["B"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.3.1/Knowledge/Aboutlookupsandfieldactions"}, {"id": 84, "question": "Which search string is the most efficient?", "options": [{"label": "A", "text": "\"failed password\""}, {"label": "B", "text": "\"failed password\"*"}, {"label": "C", "text": "index=* \"failed password\""}, {"label": "D", "text": "index=security \"failed password\""}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 85, "question": "Which search string matches only events with the status_code of 404?", "options": [{"label": "A", "text": "status_code!=404"}, {"label": "B", "text": "status_code>=400"}, {"label": "C", "text": "status_code<=404"}, {"label": "D", "text": "status_code>403 status_code<405"}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 86, "question": "_______________ transforms raw data into events and distributes the results\ninto an index.", "options": [{"label": "A", "text": "Index"}, {"label": "B", "text": "Search Head"}, {"label": "C", "text": "Indexer"}, {"label": "D", "text": "Forwarder"}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 87, "question": "Documentations for Splunk can be found at docs.splunk.com", "options": [{"label": "A", "text": "True"}, {"label": "B", "text": "False"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 88, "question": "Which component of Splunk is primarily responsible for saving data?", "options": [{"label": "A", "text": "Search Head"}, {"label": "B", "text": "Heavy Forwarder"}, {"label": "C", "text": "Indexer"}, {"label": "D", "text": "Universal Forwarder"}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 89, "question": "Universal forwarder is recommended for forwarding the logs to indexers.", "options": [{"label": "A", "text": "False"}, {"label": "B", "text": "True"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 90, "question": "Splunk apps are used for following (Choose three.):", "options": [{"label": "A", "text": "Designed to cater numerous use cases and empower Splunk."}, {"label": "B", "text": "We can not install Splunk App."}, {"label": "C", "text": "Allows multiple workspaces for different use cases/user roles."}, {"label": "D", "text": "It is collection of different Splunk config files like data inputs, UI and\nKnowledge Object."}], "answer": ["A", "C", "D"], "explanation": "", "reference": ""}, {"id": 91, "question": "Three basic components of Splunk are (Choose three.):", "options": [{"label": "A", "text": "Forwarders"}, {"label": "B", "text": "Deployment Server"}, {"label": "C", "text": "Indexer"}, {"label": "D", "text": "Knowledge Objects"}, {"label": "E", "text": "Index"}, {"label": "F", "text": "Search Head"}], "answer": ["A", "C", "F"], "explanation": "", "reference": ""}, {"id": 92, "question": "What is Splunk?", "options": [{"label": "A", "text": "Splunk is a software platform to search, analyze and visualize\nthe machine-generated data."}, {"label": "B", "text": "Database management tool."}, {"label": "C", "text": "Security Information and Event Management (SIEM)."}, {"label": "D", "text": "Cloud based application that help in analyzing logs."}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 93, "question": "We should use heavy forwarder for sending event-based data to Indexers.", "options": [{"label": "A", "text": "False"}, {"label": "B", "text": "True"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 94, "question": "Splunk Enterprise is used as a Scalable service in Splunk Cloud.", "options": [{"label": "A", "text": "True"}, {"label": "B", "text": "False"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 95, "question": "Which component of Splunk let us write SPL query to find the required\ndata?", "options": [{"label": "A", "text": "Forwarders"}, {"label": "B", "text": "Indexer"}, {"label": "C", "text": "Heavy Forwarders"}, {"label": "D", "text": "Search head"}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 96, "question": "All components are installed and administered in Splunk Enterprise on-premise.", "options": [{"label": "A", "text": "True"}, {"label": "B", "text": "False"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 97, "question": "What are Splunk alerts based on?", "options": [{"label": "A", "text": "Dashboards"}, {"label": "B", "text": "Webhooks"}, {"label": "C", "text": "Searches"}, {"label": "D", "text": "Reports"}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 98, "question": "How many main user roles do you have in Splunk?", "options": [{"label": "A", "text": "2"}, {"label": "B", "text": "4"}, {"label": "C", "text": "1"}, {"label": "D", "text": "3"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 99, "question": "Field names are case sensitive and field value are not.", "options": [{"label": "A", "text": "True"}, {"label": "B", "text": "False"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 100, "question": "Which all time unit abbreviations can you include in Advanced time range picker? (Choose seven.)", "options": [{"label": "A", "text": "h"}, {"label": "B", "text": "day"}, {"label": "C", "text": "mon"}, {"label": "D", "text": "yr"}, {"label": "E", "text": "y"}, {"label": "F", "text": "w"}, {"label": "G", "text": "week"}, {"label": "H", "text": "d"}, {"label": "I", "text": "s"}, {"label": "J", "text": "m"}], "answer": ["A", "C", "E", "F", "H", "I", "J"], "explanation": "", "reference": ""}, {"id": 101, "question": "Which of the following statements describes a search job?", "options": [{"label": "A", "text": "Once a search job begins, it cannot be stopped"}, {"label": "B", "text": "A search job can only be paused when less than 50% of events are returned"}, {"label": "C", "text": "A search job can only be stopped when less than 50% of events are returned"}, {"label": "D", "text": "Once a search job begins, it can be stopped or paused at any point in time"}], "answer": ["D"], "explanation": "", "reference": "https://answers.splunk.com/answers/329699/why-does-my-search-head-cluster-captain-start-dele-1.html"}, {"id": 102, "question": "Following are the time selection option while making search:\n(Choose all that apply.)", "options": [{"label": "A", "text": "Date & Time Range"}, {"label": "B", "text": "Advanced"}, {"label": "C", "text": "Date Range"}, {"label": "D", "text": "Presets"}, {"label": "E", "text": "Relative"}], "answer": ["A", "B", "C", "D", "E"], "explanation": "", "reference": ""}, {"id": 103, "question": "Which search will return only events containing the word `error` and display the results as a table that includes the\nfields named action, src, and dest?", "options": [{"label": "A", "text": "error | table action, src, dest"}, {"label": "B", "text": "error | tabular action, src, dest"}, {"label": "C", "text": "error | stats table action, src, dest"}, {"label": "D", "text": "error | table column=action column=src column=dest"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 104, "question": "At the time of searching the start time is 03:35:08.\nWill it look back to 03:00:00 if we use -30m@h in searching?", "options": [{"label": "A", "text": "Yes"}, {"label": "B", "text": "No"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 105, "question": "Put query into separate lines where | (Pipes) are used by selecting following options.", "options": [{"label": "A", "text": "CTRL + Enter"}, {"label": "B", "text": "Shift + Enter"}, {"label": "C", "text": "Space + Enter"}, {"label": "D", "text": "ALT + Enter"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 106, "question": "What is the result of the following search?\nindex=myindex source=c:\\mydata.txt NOT error=*", "options": [{"label": "A", "text": "Only data where the value of the field error does not equal an asterisk (*) will be displayed."}, {"label": "B", "text": "Only data that does not contain the error field will be displayed."}, {"label": "C", "text": "Only data with a value in the field error will be displayed."}, {"label": "D", "text": "Only data where the error field is present and does not contain a value will be displayed."}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 107, "question": "Snapping rounds down to the nearest specified unit.", "options": [{"label": "A", "text": "Yes"}, {"label": "B", "text": "No"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 108, "question": "Query - status != 100:", "options": [{"label": "A", "text": "Will return event where status field exist but value of that field is not 100."}, {"label": "B", "text": "Will return event where status field exist but value of that field is not 100 and all events\nwhere status field doesn't exist."}, {"label": "C", "text": "Will get different results depending on data."}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 109, "question": "Which of the following is a correct way to limit search results to display the 5 most common values of a field?", "options": [{"label": "A", "text": "| rare top=5"}, {"label": "B", "text": "| top rare=5"}, {"label": "C", "text": "| top limit=5"}, {"label": "D", "text": "| rare limit=5"}], "answer": ["C"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/SplunkCloud/latest/SearchReference/Top"}, {"id": 110, "question": "When refining search results, what is the difference in the time picker between real-time and relative time ranges?", "options": [{"label": "A", "text": "Real-time searches display results from a rolling time window, while relative searches display results from a set length of\ntime."}, {"label": "B", "text": "Real-time searches happen instantly, while relative searches happen at a scheduled time."}, {"label": "C", "text": "Real-time represents events that have happened in a set time window, while relative will display results from a rolling time\nwindow."}, {"label": "D", "text": "Real-time searches run constantly in the background, while relative searches only run when certain criteria are met."}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 111, "question": "Which of the following is the best way to create a report that shows the last 24 hours of events?", "options": [{"label": "A", "text": "Use earliest=-1d@d latest=@d"}, {"label": "B", "text": "Set a real-time search over a 24-hour window"}, {"label": "C", "text": "Use the time range picket to select €‫ג‬Yesterday€‫ג‬"}, {"label": "D", "text": "Use the time range picker to select €‫ג‬Last 24 hours€‫ג‬"}], "answer": ["D"], "explanation": "", "reference": "https://answers.splunk.com/answers/153100/how-to-get-the-event-count-for-the-last-24-hours-as-a-scheduledreport.html"}, {"id": 112, "question": "Splunk shows data in __________________.", "options": [{"label": "A", "text": "ASCII Character order."}, {"label": "B", "text": "Reverse chronological order."}, {"label": "C", "text": "Alphanumeric order."}, {"label": "D", "text": "Chronological order."}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 113, "question": "How to make Interesting field into a selected field?", "options": [{"label": "A", "text": "Click field in field sidebar -> click YES on the pop-up dialog on upper right side -> check now field should be visible in\nthe list of selected fields."}, {"label": "B", "text": "Not possible."}, {"label": "C", "text": "Only CLI changes will enable it."}, {"label": "D", "text": "Click Settings -> Find field option -> Drop down select field -> enable selected field -> check now field should be\nvisible in the list of selected fields."}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 114, "question": "Parsing of data can happen both in HF and Indexer.", "options": [{"label": "A", "text": "Only HF"}, {"label": "B", "text": "No"}, {"label": "C", "text": "Yes"}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 115, "question": "Upload option creates inputs.conf", "options": [{"label": "A", "text": "Yes"}, {"label": "B", "text": "No"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 116, "question": "What will always appear in the Selected Fields list?", "options": [{"label": "A", "text": "index"}, {"label": "B", "text": "action"}, {"label": "C", "text": "clientip"}, {"label": "D", "text": "sourcetype"}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 117, "question": "What kind of logs can Splunk Index?", "options": [{"label": "A", "text": "Only A, B"}, {"label": "B", "text": "Router and Switch Logs"}, {"label": "C", "text": "Firewall and Web Server Logs"}, {"label": "D", "text": "Only C"}, {"label": "E", "text": "Database logs"}, {"label": "F", "text": "All firewall, web server, database, router and switch logs"}], "answer": ["F"], "explanation": "", "reference": ""}, {"id": 118, "question": "Select the statements that are true for timeline in Splunk (Choose four.):", "options": [{"label": "A", "text": "Timeline shows distribution of events specified in the time range in the form of bars."}, {"label": "B", "text": "Single click to see the result for particular time period."}, {"label": "C", "text": "You can click and drag across the bar for selecting the range."}, {"label": "D", "text": "This is default view and you can't make any changes to it."}, {"label": "E", "text": "You can hover your mouse for details like total events, time and date."}], "answer": ["A", "B", "C", "E"], "explanation": "", "reference": ""}, {"id": 119, "question": "In monitor option you can select the following options in GUI.", "options": [{"label": "A", "text": "Only HTTP Event Collector (HEC) and TCP/UDP"}, {"label": "B", "text": "None of the above"}, {"label": "C", "text": "Only TCP/UDP"}, {"label": "D", "text": "Only Scripts"}, {"label": "E", "text": "Filed & Directories, HTTP Event Collector (HEC), TCP/UDP and Scripts"}], "answer": ["E"], "explanation": "", "reference": ""}, {"id": 120, "question": "Interesting fields are the fields that have at least 20% of resulting fields.", "options": [{"label": "A", "text": "True"}, {"label": "B", "text": "False"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 121, "question": "Data sources being opened and read applies to:", "options": [{"label": "A", "text": "None of the above"}, {"label": "B", "text": "Indexing Phase"}, {"label": "C", "text": "Parsing Phase"}, {"label": "D", "text": "Input Phase"}, {"label": "E", "text": "License Metering"}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 122, "question": "Which of the following reports is available in the Fields window?", "options": [{"label": "A", "text": "Top values by time"}, {"label": "B", "text": "Rare values by time"}, {"label": "C", "text": "Events with top value fields"}, {"label": "D", "text": "Events with rare value fields"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 123, "question": "In the Search and Reporting app, which is a default selected field?", "options": [{"label": "A", "text": "index"}, {"label": "B", "text": "host"}, {"label": "C", "text": "_time"}, {"label": "D", "text": "action"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 124, "question": "When saving a search directly to a dashboard panel instead of saving as a report first,\nwhich of the following is created?", "options": [{"label": "A", "text": "Cloned panel"}, {"label": "B", "text": "Inline panel"}, {"label": "C", "text": "Report panel"}, {"label": "D", "text": "Prebuilt panel"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 125, "question": "What are the two most efficient search filters?", "options": [{"label": "A", "text": "_time and host"}, {"label": "B", "text": "_time and index"}, {"label": "C", "text": "host and sourcetype"}, {"label": "D", "text": "index and sourcetype"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 126, "question": "You can also specify a time range in the search bar. You can use the following for beginning and ending for a time\nrange (Choose two.):", "options": [{"label": "A", "text": "Not possible to specify time manually in Search query"}, {"label": "B", "text": "end="}, {"label": "C", "text": "start="}, {"label": "D", "text": "earliest="}, {"label": "E", "text": "latest="}], "answer": ["D", "E"], "explanation": "", "reference": ""}, {"id": 127, "question": "Which search will return the 15 least common field values for the dest_ip field?", "options": [{"label": "A", "text": "sourcetype=firewall | rare num=15 dest_ip"}, {"label": "B", "text": "sourcetype=firewall | rare last=15 dest_ip"}, {"label": "C", "text": "sourcetype=firewall | rare count=15 dest_ip"}, {"label": "D", "text": "sourcetype=firewall | rare limit=15 dest_ip"}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 128, "question": "Which Field/Value pair will return only events found in the index named security?", "options": [{"label": "A", "text": "Index=Security"}, {"label": "B", "text": "index=Security"}, {"label": "C", "text": "Index=security"}, {"label": "D", "text": "index!=Security"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 129, "question": "By default, which role contains the minimum permissions required to have write access to Splunk alerts?", "options": [{"label": "A", "text": "Alerting"}, {"label": "B", "text": "Admin"}, {"label": "C", "text": "Power"}, {"label": "D", "text": "User"}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 130, "question": "Can you stop or pause the searching?", "options": [{"label": "A", "text": "No"}, {"label": "B", "text": "Yes"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 131, "question": "Selected fields are a set of configurable fields displayed for each event.", "options": [{"label": "A", "text": "True"}, {"label": "B", "text": "False"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 132, "question": "When is an alert triggered?", "options": [{"label": "A", "text": "When Splunk encounters a syntax error in a search"}, {"label": "B", "text": "When a trigger action meets the predefined conditions"}, {"label": "C", "text": "When an event in a search matches up with a data model"}, {"label": "D", "text": "When results of a search meet a specifically defined condition"}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 133, "question": "Select the correct option that applies to Index time processing (Choose three.).", "options": [{"label": "A", "text": "Indexing"}, {"label": "B", "text": "Searching"}, {"label": "C", "text": "Parsing"}, {"label": "D", "text": "Settings"}, {"label": "E", "text": "Input"}], "answer": ["A", "C", "E"], "explanation": "", "reference": ""}, {"id": 134, "question": "Which of the statements is correct regarding click and drag option in timeline?", "options": [{"label": "A", "text": "The new result after selecting the range by dragging filters the events and displays the most recent first."}, {"label": "B", "text": "There is no functionality like click and drag in Splunk's timeline."}, {"label": "C", "text": "Using this option executes a new query."}, {"label": "D", "text": "This doesn't execute a new query."}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 135, "question": "Assuming a user has the capability to edit reports, which of the following are editable?", "options": [{"label": "A", "text": "Acceleration, schedule, permissions"}, {"label": "B", "text": "The report's name, schedule, permissions"}, {"label": "C", "text": "The report's name, acceleration, schedule"}, {"label": "D", "text": "The report's name, acceleration, permissions"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 136, "question": "In the Fields sidebar, what does the number directly to the right of the field name indicate?", "options": [{"label": "A", "text": "The value of the field"}, {"label": "B", "text": "The number of values for the field"}, {"label": "C", "text": "The number of unique values for the field"}, {"label": "D", "text": "The numeric non-unique values of the field"}], "answer": ["C"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/8.0.3/SearchTutorial/Usefieldstosearch"}, {"id": 137, "question": "Beginning parentheses is automatically highlighted to guide you on the presence of\ncomplimenting parentheses.", "options": [{"label": "A", "text": "No"}, {"label": "B", "text": "Yes"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 138, "question": "Keywords are highlighted when you mouse over search results and you can click this search result to (Choose\nthree.):", "options": [{"label": "A", "text": "Open new search."}, {"label": "B", "text": "Exclude the item from search."}, {"label": "C", "text": "None of the above."}, {"label": "D", "text": "Add the item to search."}], "answer": ["A", "B", "D"], "explanation": "", "reference": ""}, {"id": 139, "question": "Which of the following is the appropriately formatted SPL search?", "options": [{"label": "A", "text": "index=security sourcetype=linux_secure (invalid OR failed) | count as \"Potential Issues\""}, {"label": "B", "text": "index=security sourcetype=linux_secure (invalid OR failed) | stats count as \"Potential Issues\""}, {"label": "C", "text": "index=security sourcetype=linux_secure (invalid OR failed) | count stats as \"Potential Issues\""}, {"label": "D", "text": "index=security sourcetype=linux_secure (invalid OR failed) | stats as \"Potential Issues\""}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 140, "question": "You are able to create new Index in Data Input settings.", "options": [{"label": "A", "text": "No"}, {"label": "B", "text": "Yes"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 141, "question": "What result will you get with following search index=test sourcetype=\"The_Questionnaire_P*\" ?", "options": [{"label": "A", "text": "the_questionnaire _pedia"}, {"label": "B", "text": "the_questionnaire pedia"}, {"label": "C", "text": "the_questionnaire_pedia"}, {"label": "D", "text": "the_questionnaire Pedia"}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 142, "question": "What is the correct way to use a time range specifier in the search bar so that the search looks back 2 hours?", "options": [{"label": "A", "text": "latest=-2h"}, {"label": "B", "text": "earliest=-2h"}, {"label": "C", "text": "latest=-2hour@d"}, {"label": "D", "text": "earliest=-2hour@d"}], "answer": ["B"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/8.0.3/Search/Specifytimemodifiersinyoursearch"}, {"id": 143, "question": "A SOC manager is complaining that a scheduled alert for failed login attempts triggered 150 emails. They still want to be\nalerted of failed logins via email, but they want less volume of alerts. Which of the following would resolve this for the SOC\nmanager?", "options": [{"label": "A", "text": "Change the schedule so the alert runs more frequently."}, {"label": "B", "text": "Disable the alert entirely."}, {"label": "C", "text": "Change the trigger from \"For each result\" to \"Once''."}, {"label": "D", "text": "Change the alert action from email to webhook."}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 144, "question": "What options do you get after selecting timeline? (Choose four.)", "options": [{"label": "A", "text": "Zoom to selection"}, {"label": "B", "text": "Format Timeline"}, {"label": "C", "text": "Deselect"}, {"label": "D", "text": "Delete"}, {"label": "E", "text": "Zoom Out"}], "answer": ["A", "B", "C", "E"], "explanation": "", "reference": ""}, {"id": 145, "question": "Which of the statements are correct? (Choose three.)", "options": [{"label": "A", "text": "Zoom to selection: Narrows the time range and re-executes the search."}, {"label": "B", "text": "Zoom to selection: Narrows the time range and doesn't re-executes the search."}, {"label": "C", "text": "Format Timeline: Hides or shows the timeline in different views."}, {"label": "D", "text": "Zoom-Out: Expands the time focus and doesn't re-executes the search."}, {"label": "E", "text": "Zoom-out: Expands the time focus and re-executes the search."}], "answer": ["A", "C", "E"], "explanation": "", "reference": ""}, {"id": 146, "question": "The new data uploaded in Splunk are shown in ________________.", "options": [{"label": "A", "text": "Real-time"}, {"label": "B", "text": "10 Minutes"}, {"label": "C", "text": "Overnight Download"}, {"label": "D", "text": "30 Minutes"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 147, "question": "Which of the statements are correct about HF? (Choose three.)", "options": [{"label": "A", "text": "Parsing"}, {"label": "B", "text": "Masking"}, {"label": "C", "text": "Searching"}, {"label": "D", "text": "Forwarding"}], "answer": ["A", "B", "D"], "explanation": "", "reference": ""}, {"id": 148, "question": "Monitor option in Add Data provides _______________.", "options": [{"label": "A", "text": "Only continuous monitoring."}, {"label": "B", "text": "Only One-time monitoring."}, {"label": "C", "text": "None of the above."}, {"label": "D", "text": "Both One-time and continuous monitoring."}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 149, "question": "What are the three main Splunk components?", "options": [{"label": "A", "text": "Search head, GPU, streamer"}, {"label": "B", "text": "Search head, indexer, forwarder"}, {"label": "C", "text": "Search head, SQL database, forwarder"}, {"label": "D", "text": "Search head, SSD, heavy weight agent"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 150, "question": "@ Symbol can be used in advanced time unit option.", "options": [{"label": "A", "text": "No"}, {"label": "B", "text": "Yes"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 151, "question": "At index time, in which field does Splunk store the timestamp value?", "options": [{"label": "A", "text": "time"}, {"label": "B", "text": "_time"}, {"label": "C", "text": "EventTime"}, {"label": "D", "text": "timestamp"}], "answer": ["B"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.6/Data/HowSplunkextractstimestamps"}, {"id": 152, "question": "When using the top command in the following search, which of the following will be true about the results? index=\"main\"\nsourcetype=\"access_*\" action=\"purchase\" | top 3 statusCcde by user showperc=f countfield=status_code_count", "options": [{"label": "A", "text": "The percentage field will be displayed in the results."}, {"label": "B", "text": "The top three most common values in statusCode will be displayed for each user."}, {"label": "C", "text": "The search will fail. The proper top command format is top limit=3 instead of top 3."}, {"label": "D", "text": "Only the top three overall most common values in statusCode will be displayed."}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 153, "question": "What is the default lifetime of every Splunk search job?", "options": [{"label": "A", "text": "All search jobs are saved for 10 days"}, {"label": "B", "text": "All search jobs are saved for 10 hours"}, {"label": "C", "text": "All search jobs are saved for 10 weeks"}, {"label": "D", "text": "All search jobs are saved for 10 minutes"}], "answer": ["D"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/8.0.3/Search/Extendjoblifetimes"}, {"id": 154, "question": "Data summary button just below the search bar gives you the following (Choose three.):", "options": [{"label": "A", "text": "Hosts"}, {"label": "B", "text": "Sourcetypes"}, {"label": "C", "text": "Sources"}, {"label": "D", "text": "Indexes"}], "answer": ["A", "B", "C"], "explanation": "", "reference": ""}, {"id": 155, "question": "You can view the search result in following format (Choose three.):", "options": [{"label": "A", "text": "Table"}, {"label": "B", "text": "Raw"}, {"label": "C", "text": "Pie Chart"}, {"label": "D", "text": "List"}], "answer": ["A", "B", "D"], "explanation": "", "reference": ""}, {"id": 156, "question": "You can on-board data to Splunk using following means (Choose four.):", "options": [{"label": "A", "text": "Props"}, {"label": "B", "text": "CLI"}, {"label": "C", "text": "Splunk Web"}, {"label": "D", "text": "savedsearches.conf"}, {"label": "E", "text": "Splunk apps and add-ons"}, {"label": "F", "text": "indexes.conf"}, {"label": "G", "text": "inputs.conf"}, {"label": "H", "text": "metadata.conf"}], "answer": ["B", "C", "E", "G"], "explanation": "", "reference": ""}, {"id": 157, "question": "Which of the following statements are correct about Search & Reporting App? (Choose three.)", "options": [{"label": "A", "text": "Can be accessed by Apps > Search & Reporting."}, {"label": "B", "text": "Provides default interface for searching and analyzing logs."}, {"label": "C", "text": "Enables the user to create knowledge object, reports, alerts and dashboards."}, {"label": "D", "text": "It only gives us search functionality."}], "answer": ["A", "B", "C"], "explanation": "", "reference": ""}, {"id": 158, "question": "Search Assistant is enabled by default in the SPL editor with compact settings.", "options": [{"label": "A", "text": "No"}, {"label": "B", "text": "Yes"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 159, "question": "Which of the following is a Splunk internal field?", "options": [{"label": "A", "text": "_raw"}, {"label": "B", "text": "host"}, {"label": "C", "text": "_host"}, {"label": "D", "text": "index"}], "answer": ["A"], "explanation": "", "reference": "https://docs.splunk.com/Splexicon:Internalfield"}, {"id": 160, "question": "Matching of parentheses is a feature of Splunk Assistant.", "options": [{"label": "A", "text": "No"}, {"label": "B", "text": "Yes"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 161, "question": "Which of the following are Splunk premium enhanced solutions? (Choose three.)", "options": [{"label": "A", "text": "Splunk User Behavior Analytics (UBA)"}, {"label": "B", "text": "Splunk IT Service Intelligence (ITSI)"}, {"label": "C", "text": "Splunk Enterprise Security (ES)"}, {"label": "D", "text": "Splunk Analytics Security (AS)"}], "answer": ["A", "B", "C"], "explanation": "", "reference": ""}, {"id": 162, "question": "You can use the following options to specify start and end time for the query range:", "options": [{"label": "A", "text": "earliest="}, {"label": "B", "text": "latest="}, {"label": "C", "text": "beginning="}, {"label": "D", "text": "ending="}, {"label": "E", "text": "All the above"}, {"label": "F", "text": "Only 3rd and 4th"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 163, "question": "Zoom Out and Zoom to Selection re-executes the search.", "options": [{"label": "A", "text": "No"}, {"label": "B", "text": "Yes"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 164, "question": "How can results from a specified static lookup file be displayed?", "options": [{"label": "A", "text": "lookup command"}, {"label": "B", "text": "inputlookup command"}, {"label": "C", "text": "Settings > Lookups > Input"}, {"label": "D", "text": "Settings > Lookups > Upload"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 165, "question": "When is the pipe character, |, used in search strings?", "options": [{"label": "A", "text": "Before clauses. For example: stats sum(bytes) | by host"}, {"label": "B", "text": "Before commands. For example: | stats sum(bytes) by host"}, {"label": "C", "text": "Before arguments. For example: stats sum| (bytes) by host"}, {"label": "D", "text": "Before functions. For example: stats |sum(bytes) by host"}], "answer": ["B"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/8.0.3/Search/Aboutsearchlanguagesyntax#Quotes_and_esca\nping_characters"}, {"id": 166, "question": "______________ is the default web port used by Splunk.", "options": [{"label": "A", "text": "8089"}, {"label": "B", "text": "8000"}, {"label": "C", "text": "8080"}, {"label": "D", "text": "443"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 167, "question": "Portal for Splunk apps can be accessed through www.splunkbase.com", "options": [{"label": "A", "text": "False"}, {"label": "B", "text": "True"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 168, "question": "In the Splunk web interface, what defines an interesting field?", "options": [{"label": "A", "text": "The field with the lowest entropy relative to the core search."}, {"label": "B", "text": "The field that exists in at least twenty percent (20%) of the events in the search."}, {"label": "C", "text": "The numeric field within the data, which allows its use in charts and timecharts."}, {"label": "D", "text": "The field with the highest entropy relative to the core search."}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 169, "question": "Where does Licensing meter happen?", "options": [{"label": "A", "text": "Indexer"}, {"label": "B", "text": "Parsing"}, {"label": "C", "text": "Heavy Forwarder"}, {"label": "D", "text": "Input"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 170, "question": "Fields are searchable key value pairs in your event data.", "options": [{"label": "A", "text": "True"}, {"label": "B", "text": "False"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 171, "question": "Which of the following is the most efficient search?", "options": [{"label": "A", "text": "index=* €‫ג‬failed password€‫ג‬"}, {"label": "B", "text": "€‫ג‬failed password €‫ג‬index=*"}, {"label": "C", "text": "(index=* OR index=security) €‫ג‬failed password€‫ג‬"}, {"label": "D", "text": "index=security €‫ג‬failed password€‫ג‬"}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 172, "question": "Splunk index time process can be broken down into __________ phases.", "options": [{"label": "A", "text": "3"}, {"label": "B", "text": "2"}, {"label": "C", "text": "4"}, {"label": "D", "text": "1"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 173, "question": "The better way of writing search query for index is:", "options": [{"label": "A", "text": "index=a index=b"}, {"label": "B", "text": "(index=a OR index=b)"}, {"label": "C", "text": "index=(a & b)"}, {"label": "D", "text": "index = a, b"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 174, "question": "What is Search Assistant in Splunk?", "options": [{"label": "A", "text": "It is only available to Admins."}, {"label": "B", "text": "Such feature does not exist in Splunk."}, {"label": "C", "text": "Shows options to complete the search string."}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 175, "question": "Splunk indexes the data on the basis of timestamps.", "options": [{"label": "A", "text": "True"}, {"label": "B", "text": "False"}], "answer": ["A"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.3/Data/Aboutdefaultfields"}, {"id": 176, "question": "Uploading local files though Upload options index the file only once.", "options": [{"label": "A", "text": "No"}, {"label": "B", "text": "Yes"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 177, "question": "The four types of Lookups that Splunk provides out-of-the-box are External, KV Store, Geospatial and which of the\nfollowing?", "options": [{"label": "A", "text": "Correlated"}, {"label": "B", "text": "Total"}, {"label": "C", "text": "Segmented"}, {"label": "D", "text": "File-based"}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 178, "question": "Every Search in Splunk is also called _____________.", "options": [{"label": "A", "text": "None of the above"}, {"label": "B", "text": "Job"}, {"label": "C", "text": "Search Only"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 179, "question": "License Meter runs before data compression.", "options": [{"label": "A", "text": "No"}, {"label": "B", "text": "Yes"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 180, "question": "Which of the following is a metadata field assigned to every event in Splunk?", "options": [{"label": "A", "text": "host"}, {"label": "B", "text": "owner"}, {"label": "C", "text": "bytes"}, {"label": "D", "text": "action"}], "answer": ["A"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/8.0.3/Data/Assignmetadatatoeventsdynamically"}, {"id": 181, "question": "When viewing results of a search job from the Activity menu, which of the following is displayed?", "options": [{"label": "A", "text": "New events based on the current time range picker"}, {"label": "B", "text": "The same events based on the current time range picker"}, {"label": "C", "text": "The same events from when the original search was executed"}, {"label": "D", "text": "New events in addition to the same events from the original search"}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 182, "question": "Which symbol is used to snap the time?", "options": [{"label": "A", "text": "@"}, {"label": "B", "text": "&"}, {"label": "C", "text": "*"}, {"label": "D", "text": "#"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 183, "question": "Splunk Parses data into individual events, extracts time, and assigns metadata.", "options": [{"label": "A", "text": "False"}, {"label": "B", "text": "True"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 184, "question": "Select the best options for \"search best practices\" in Splunk:\n(Choose five.)", "options": [{"label": "A", "text": "Select the time range always."}, {"label": "B", "text": "Try to specify index values."}, {"label": "C", "text": "Include as many search terms as possible."}, {"label": "D", "text": "Never select time range."}, {"label": "E", "text": "Try to use * with every search term."}, {"label": "F", "text": "Inclusion is generally better than exclusion."}, {"label": "G", "text": "Try to keep specific search terms."}], "answer": ["A", "B", "C", "F", "G"], "explanation": "", "reference": ""}, {"id": 185, "question": "Fields are searchable name and value pairings that differentiates one event from\nanother.", "options": [{"label": "A", "text": "False"}, {"label": "B", "text": "True"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 186, "question": "Splunk internal fields contains general information about events and starts from underscore i.e. _ .", "options": [{"label": "A", "text": "True"}, {"label": "B", "text": "False"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 187, "question": "Field values are case sensitive.", "options": [{"label": "A", "text": "True"}, {"label": "B", "text": "False"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 188, "question": "You can change the App context in Input setting.", "options": [{"label": "A", "text": "No"}, {"label": "B", "text": "Yes"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 189, "question": "A collection of items containing things such as data inputs, UI elements, and knowledge objects is known as\nwhat?", "options": [{"label": "A", "text": "An app"}, {"label": "B", "text": "JSON"}, {"label": "C", "text": "A role"}, {"label": "D", "text": "An enhanced solution"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 190, "question": "Events in Splunk are automatically segregated using data and time.", "options": [{"label": "A", "text": "Yes"}, {"label": "B", "text": "No"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 191, "question": "The default host name used in Inputs general settings can not be changed.", "options": [{"label": "A", "text": "False"}, {"label": "B", "text": "True"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 192, "question": "What is a quick, comprehensive way to learn what data is present in a Splunk deployment?", "options": [{"label": "A", "text": "Review Splunk reports"}, {"label": "B", "text": "Run ./splunk show"}, {"label": "C", "text": "Click Data Summary in Splunk Web"}, {"label": "D", "text": "Search index=* sourcetype=* host=*"}], "answer": ["C"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/8.0.3/InheritedDeployment/Yourdata"}, {"id": 193, "question": "Splunk extracts fields from event data at index time and at search time.", "options": [{"label": "A", "text": "True"}, {"label": "B", "text": "False"}], "answer": ["A"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/7.2.3/SearchTutorial/Usefieldstosearch"}, {"id": 194, "question": "Which statement describes field discovery at search time?", "options": [{"label": "A", "text": "Splunk automatically discovers only numeric fields"}, {"label": "B", "text": "Splunk automatically discovers only alphanumeric fields"}, {"label": "C", "text": "Splunk automatically discovers only manually configured fields"}, {"label": "D", "text": "Splunk automatically discovers only fields directly related to the search results"}], "answer": ["D"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/8.0.2/Search/Changethesearchmode"}, {"id": 195, "question": "Log filtering/parsing can be done from _____________.", "options": [{"label": "A", "text": "Index Forwarders (IF)"}, {"label": "B", "text": "Universal Forwarders (UF)"}, {"label": "C", "text": "Super Forwarder (SF)"}, {"label": "D", "text": "Heavy Forwarders (HF)"}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 196, "question": "Which of the following can be used as wildcard search in Splunk?", "options": [{"label": "A", "text": "="}, {"label": "B", "text": ">"}, {"label": "C", "text": "!"}, {"label": "D", "text": "*"}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 197, "question": "Which of the following need to be specified when utilizing the lookup command in search?", "options": [{"label": "A", "text": "Host and field"}, {"label": "B", "text": "Table name and clause"}, {"label": "C", "text": "Table name and field"}, {"label": "D", "text": "Table name and host"}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 198, "question": "Matching search terms are highlighted.", "options": [{"label": "A", "text": "Yes"}, {"label": "B", "text": "No"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 199, "question": "Field names are case sensitive.", "options": [{"label": "A", "text": "True"}, {"label": "B", "text": "False"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 200, "question": "Which is the default app for Splunk Enterprise?", "options": [{"label": "A", "text": "Splunk Enterprise Security Suite"}, {"label": "B", "text": "Searching and Reporting"}, {"label": "C", "text": "Reporting and Searching"}, {"label": "D", "text": "Splunk apps for Security"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 201, "question": "In the Search and Reporting app, which tab displays timecharts and bar charts?", "options": [{"label": "A", "text": "Events"}, {"label": "B", "text": "Patterns"}, {"label": "C", "text": "Statistics"}, {"label": "D", "text": "Visualization"}], "answer": ["D"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Splunk/8.0.2/Search/Aboutreportingcommands"}, {"id": 202, "question": "What is the proper SPL terminology for specifying a particular index in a search?", "options": [{"label": "A", "text": "index name=index_name"}, {"label": "B", "text": "indexer name=index_name"}, {"label": "C", "text": "indexer=index_name"}, {"label": "D", "text": "index=index_name"}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 203, "question": "Splunk automatically determines the source type for major data types.", "options": [{"label": "A", "text": "False"}, {"label": "B", "text": "True"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 204, "question": "Which steps do you need to take in order to be able to create a report with line chart\ncontent?", "options": [{"label": "A", "text": "1. Create a search\n2. Select the Visualization tab\n3. Click Save As > Report\n4. Select a Line Chart as the content"}, {"label": "B", "text": "1. Create a search\n2. Select the Visualization tab\n3. Click Save As > Dashboard Panel\n4. Select a Line Chart as the Panel Content"}, {"label": "C", "text": "1. Create a search\n2. Click the Events Tab\n3. Click Save As > Report\n4. Select a Line Chart as the content"}, {"label": "D", "text": "1. Create a search\n2. Select the Statistics tab\n3. Click Save As > Report\n4. Select a Line Chart as the content"}], "answer": ["A"], "explanation": "", "reference": ""}, {"id": 205, "question": "Prefix wildcards might cause performance issues.", "options": [{"label": "A", "text": "False"}, {"label": "B", "text": "True"}], "answer": ["B"], "explanation": "", "reference": ""}, {"id": 206, "question": "There are three different search modes in Splunk (Choose three.):", "options": [{"label": "A", "text": "Automatic"}, {"label": "B", "text": "Smart"}, {"label": "C", "text": "Fast"}, {"label": "D", "text": "Verbose"}], "answer": ["B", "C", "D"], "explanation": "", "reference": ""}, {"id": 207, "question": "Which of the following configuration files are used with a universal forwarder? (Choose\nall that apply.)", "options": [{"label": "A", "text": "inputs.conf"}, {"label": "B", "text": "monitor.conf"}, {"label": "C", "text": "outputs.conf"}, {"label": "D", "text": "forwarder.conf"}], "answer": ["A", "C"], "explanation": "", "reference": "https://docs.splunk.com/Documentation/Forwarder/8.0.5/Forwarder/Configuretheuniversalforwarder"}, {"id": 208, "question": "A company moves to a distributed architecture to meet the growing demand for the use of Splunk. What parameter can\nbe configured to enable automatic load balancing in the Universal Forwarder to send data to the indexers?", "options": [{"label": "A", "text": "Splunk does not do load balancing and requires a hardware load balancer to balance traffic across the indexers."}, {"label": "B", "text": "Create one outputs.conf file for each of the server addresses in the indexing tier."}, {"label": "C", "text": "Set the tcpout :my_splunk_indexers stanza to have a server value equal to a comma-separated list of IP addresses and\nindexer ports for each of the indexers in the environment."}, {"label": "D", "text": "Configure the outputs.conf file to point to any server in the indexing tier and Splunk will configure the data to be sent to all\nof the indexers."}], "answer": ["C"], "explanation": "", "reference": ""}, {"id": 209, "question": "Which is a valid stanza for a network input?", "options": [{"label": "A", "text": "[udp://172.16.10.1:9997] connection = dns sourcetype = dns"}, {"label": "B", "text": "[any://172.16.10.1:10001] connection_host = ip sourcetype = web"}, {"label": "C", "text": "[tcp://172.16.10.1:9997] connection_host = web sourcetype = web"}, {"label": "D", "text": "[tcp://172.16.10.1:10001] connection_host = dns sourcetype = dns"}], "answer": ["D"], "explanation": "", "reference": ""}, {"id": 210, "question": "What is the supported compatibility between search heads and search peers?", "options": [{"label": "A", "text": "Search heads and search peers must be on the same version."}, {"label": "B", "text": "Search heads must be at the same version or lower than the search peers."}, {"label": "C", "text": "Search heads must be at the same version or higher than the search peers."}, {"label": "D", "text": "Search heads and search peers must be on the latest version."}], "answer": ["C"], "explanation": "", "reference": ""}];
+
+(function(){
+  const expected = 199;
+  const el = document.getElementById('countWarn');
+  if (el && QUESTIONS.length !== expected) {
+    el.style.display = 'block';
+    el.textContent = `⚠️ Expected ${expected} questions, but loaded ${QUESTIONS.length}. Some questions may be missing.`;
+  }
+})();
+
+const STORAGE_KEY = "splk1001_quiz_state_v1";
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i=a.length-1; i>0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function nowISO() {
+  try { return new Date().toISOString(); } catch(e) { return ""; }
+}
+
+let state = null;
+
+function freshState() {
+  const order = shuffle(QUESTIONS.map(q => q.id));
+  const optOrder = {};
+  for (const q of QUESTIONS) {
+    const labels = q.options.map(o => o.label);
+    optOrder[q.id] = shuffle(labels);
+  }
+  return {
+    version: 1,
+    savedAt: "",
+    order,
+    optOrder,
+    currentIndex: 0,
+    answers: {},   // qid -> array of labels selected
+    submitted: {}, // qid -> true
+    correctCount: 0
+  };
+}
+
+function getQuestionById(id) { return QUESTIONS.find(q => q.id === id); }
+function isMulti(q) { return (q.answer && q.answer.length > 1); }
+
+function computeCounts() {
+  const answered = Object.keys(state.submitted).length;
+  const correct = state.correctCount;
+  const total = state.order.length;
+  const pct = answered ? Math.round((correct / answered) * 100) : 0;
+  return {answered, correct, total, pct};
+}
+
+function updateHeader() {
+  const {answered, correct, total, pct} = computeCounts();
+  document.getElementById('answeredPill').textContent = `${answered} / ${total}`;
+  document.getElementById('scorePill').textContent = `${pct}% (${correct}/${answered})`;
+  document.getElementById('currentPill').textContent = `${state.currentIndex+1} / ${total}`;
+  const progressPct = total ? Math.round((answered / total) * 100) : 0;
+  document.getElementById('progressText').textContent = `${progressPct}%`;
+  document.getElementById('progressBar').style.width = `${progressPct}%`;
+  document.getElementById('summaryText').textContent = `${answered} answered • ${correct} correct`;
+}
+
+function getSelectedFor(qid) { return state.answers[qid] ? state.answers[qid].slice() : []; }
+
+function setSelectedFor(qid, arr) {
+  state.answers[qid] = arr.slice();
+  if (document.getElementById('autosaveToggle').checked) autoSave();
+}
+
+function autoSave() {
+  try {
+    const payload = JSON.stringify({...state, savedAt: nowISO()});
+    localStorage.setItem(STORAGE_KEY, payload);
+  } catch(e) {}
+}
+
+function manualSave() { autoSave(); toast("Saved."); }
+
+function manualLoad() {
+  const loaded = tryLoad();
+  if (!loaded) toast("No saved progress found.");
+}
+
+function clearSave() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+  toast("Cleared saved progress.");
+}
+
+function normalizeLabelArr(arr) {
+  return (arr || []).slice().map(s => (s || "").toUpperCase().trim()).filter(Boolean).sort();
+}
+
+function isCorrect(qid, q) {
+  const sel = normalizeLabelArr(getSelectedFor(qid));
+  const ans = normalizeLabelArr(q.answer || []);
+  if (sel.length !== ans.length) return false;
+  for (let i=0;i<sel.length;i++) if (sel[i] !== ans[i]) return false;
+  return true;
+}
+
+function tryLoad() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    const obj = JSON.parse(raw);
+    if (!obj || !obj.order || !Array.isArray(obj.order)) return false;
+    if (obj.order.length !== QUESTIONS.length) return false;
+
+    state = obj;
+    state.submitted = state.submitted || {};
+    // recompute correctCount
+    let cc = 0;
+    for (const qidStr of Object.keys(state.submitted)) {
+      const qid = parseInt(qidStr,10);
+      const q = getQuestionById(qid);
+      if (!q) continue;
+      if (isCorrect(qid, q)) cc++;
+    }
+    state.correctCount = cc;
+    render();
+    toast("Loaded.");
+    return true;
+  } catch(e) { return false; }
+}
+
+function toast(msg) {
+  const el = document.getElementById('countWarn');
+  el.style.display = 'block';
+  el.style.background = 'rgba(96,165,250,.12)';
+  el.style.borderColor = 'rgba(96,165,250,.45)';
+  el.style.color = '#bfdbfe';
+  el.textContent = msg;
+  clearTimeout(window.__toastT);
+  window.__toastT = setTimeout(() => {
+    el.style.display = 'none';
+    el.style.background = 'rgba(245,158,11,.12)';
+    el.style.borderColor = 'rgba(245,158,11,.45)';
+    el.style.color = '#fde68a';
+  }, 1400);
+}
+
+function render() {
+  updateHeader();
+
+  const total = state.order.length;
+  const qid = state.order[state.currentIndex];
+  const q = getQuestionById(qid);
+
+  document.getElementById('qNum').textContent = `Question ${state.currentIndex+1} of ${total}`;
+  document.getElementById('qText').textContent = q.question || "(no question text)";
+  document.getElementById('qHint').textContent = isMulti(q) ? "Select all that apply." : "";
+
+  const optsWrap = document.getElementById('options');
+  optsWrap.innerHTML = "";
+
+  const selected = new Set(getSelectedFor(qid));
+  const submitted = !!state.submitted[qid];
+
+  const orderedLabels = (state.optOrder && state.optOrder[qid]) ? state.optOrder[qid].slice() : q.options.map(o => o.label);
+  const optByLabel = {};
+  for (const o of q.options) optByLabel[o.label] = o;
+
+  const inputType = isMulti(q) ? "checkbox" : "radio";
+
+  for (const label of orderedLabels) {
+    const o = optByLabel[label];
+    if (!o) continue;
+
+    const row = document.createElement('label');
+    row.className = "opt";
+    const input = document.createElement('input');
+    input.type = inputType;
+    input.name = "opt";
+    input.value = label;
+    input.checked = selected.has(label);
+    input.disabled = submitted;
+
+    input.addEventListener('change', () => {
+      if (submitted) return;
+      if (inputType === "radio") {
+        setSelectedFor(qid, [label]);
+      } else {
+        const curr = new Set(getSelectedFor(qid));
+        if (input.checked) curr.add(label); else curr.delete(label);
+        setSelectedFor(qid, Array.from(curr));
+      }
+      renderFeedback(false);
+    });
+
+    const bubble = document.createElement('div');
+    bubble.className = "label";
+    bubble.textContent = label;
+
+    const txt = document.createElement('div');
+    txt.className = "txt";
+    txt.textContent = o.text || "(blank)";
+
+    row.appendChild(input);
+    row.appendChild(bubble);
+    row.appendChild(txt);
+    optsWrap.appendChild(row);
+  }
+
+  document.getElementById('prevBtn').disabled = state.currentIndex === 0;
+  document.getElementById('nextBtn').disabled = state.currentIndex === total-1;
+  document.getElementById('submitBtn').disabled = submitted;
+
+  renderFeedback(false);
+
+  if (document.getElementById('autosaveToggle').checked) autoSave();
+}
+
+function escapeHtml(s) {
+  return (s || "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+}
+
+function renderFeedback(forceShow) {
+  const qid = state.order[state.currentIndex];
+  const q = getQuestionById(qid);
+  const fb = document.getElementById('feedback');
+  const submitted = !!state.submitted[qid];
+  if (!submitted && !forceShow) {
+    fb.style.display = "none";
+    fb.innerHTML = "";
+    return;
+  }
+
+  const ok = isCorrect(qid, q);
+  const ans = normalizeLabelArr(q.answer || []);
+  const optMap = Object.fromEntries((q.options || []).map(o => [String(o.label || '').toUpperCase(), o.text || '']));
+  const correctAnswerText = ans.map(label => {
+    const txt = optMap[label] || '';
+    return txt ? `${label}. ${txt}` : label;
+  }).join(ans.length > 1 ? ' · ' : '');
+
+  const tagClass = ok ? "good" : "bad";
+  const tagText = ok ? "Correct" : "Incorrect";
+  const pointsText = ok ? "+1 point" : "0 points";
+
+  const expl = q.explanation ? q.explanation : "";
+  const ref = q.reference ? q.reference : "";
+
+  fb.style.display = "block";
+  fb.innerHTML = `
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <span class="tag ${tagClass}">${tagText}</span>
+      <span class="tag neutral">${pointsText}</span>
+      ${!ok ? `<span class="tag neutral">Correct answer: ${escapeHtml(correctAnswerText || ans.join(', '))}</span>` : ''}
+    </div>
+    <div class="fbtext" style="margin-top:10px;">
+      <div style="font-weight:900; margin-bottom:6px;">Explanation:</div>
+      <div class="muted">${expl ? escapeHtml(expl) : "(no explanation provided in source PDF)"}</div>
+      ${ref ? `<div style="margin-top:10px;"><span style="font-weight:900;">References:</span> <span class="muted">${escapeHtml(ref)}</span></div>` : ""}
+    </div>
+  `;
+}
+
+function submit() {
+  const qid = state.order[state.currentIndex];
+  const q = getQuestionById(qid);
+  if (state.submitted[qid]) return;
+
+  const sel = getSelectedFor(qid);
+  if (!sel || sel.length === 0) {
+    toast("Select an answer first.");
+    return;
+  }
+
+  state.submitted[qid] = true;
+  if (isCorrect(qid, q)) state.correctCount += 1;
+
+  if (document.getElementById('autosaveToggle').checked) autoSave();
+  render();
+  renderFeedback(true);
+}
+
+function go(delta) {
+  const total = state.order.length;
+  const next = state.currentIndex + delta;
+  if (next < 0 || next >= total) return;
+  state.currentIndex = next;
+  if (document.getElementById('autosaveToggle').checked) autoSave();
+  render();
+}
+
+function resetAll() {
+  state = freshState();
+  autoSave();
+  render();
+  toast("Reset.");
+}
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
+  if (e.key === "ArrowRight") { e.preventDefault(); go(1); }
+  if (e.key === "Enter") {
+    const tag = (document.activeElement && document.activeElement.tagName) ? document.activeElement.tagName.toLowerCase() : "";
+    if (tag === "button") return;
+    e.preventDefault(); submit();
+  }
+});
+
+document.getElementById('prevBtn').addEventListener('click', () => go(-1));
+document.getElementById('nextBtn').addEventListener('click', () => go(1));
+document.getElementById('submitBtn').addEventListener('click', submit);
+document.getElementById('resetBtn').addEventListener('click', resetAll);
+
+document.getElementById('saveBtn').addEventListener('click', manualSave);
+document.getElementById('loadBtn').addEventListener('click', manualLoad);
+document.getElementById('clearBtn').addEventListener('click', clearSave);
+
+
+/* ===== Mistakes / Export / Practice Mode ===== */
+let __mistakesMode = false;
+let __mistakeIds = [];
+let __mistakePos = 0;
+let __returnIndex = null; // where you were in the normal test before practicing mistakes
+
+function __csvEscape(v){
+  const s = (v === null || v === undefined) ? "" : String(v);
+  const needs = /[",\n\r]/.test(s);
+  const inner = s.replace(/"/g,'""');
+  return needs ? `"${inner}"` : inner;
+}
+function __downloadFile(filename, content, mime){
+  const blob = new Blob([content], { type: mime || "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 2000);
+}
+
+function __sortedOptions(q){
+  const opts = Array.isArray(q.options) ? q.options.slice() : [];
+  // sort by label if present
+  opts.sort((a,b)=>{
+    const la = (a.label||"").toUpperCase();
+    const lb = (b.label||"").toUpperCase();
+    return la.localeCompare(lb);
+  });
+  return opts;
+}
+
+function __buildMistakes(){
+  const out = [];
+  for (const qid of state.order){
+    if (!state.submitted[qid]) continue;
+    const q = getQuestionById(qid);
+    if (!q) continue;
+    if (!isCorrect(qid, q)) out.push(q);
+  }
+  return out;
+}
+
+function __refreshMistakeLoop(){
+  const mistakes = __buildMistakes();
+  __mistakeIds = mistakes.map(q=>q.id);
+  if (__mistakePos >= __mistakeIds.length) __mistakePos = 0;
+  if (__mistakeIds.length === 0){
+    __mistakesMode = false;
+    const btn = document.getElementById("practiceMistakesBtn");
+    if (btn) btn.textContent = "Practice mistakes";
+  }
+}
+
+function gotoQuestionId(qid){
+  const i = state.order.indexOf(qid);
+  if (i < 0) return;
+  state.currentIndex = i;
+  if (document.getElementById('autosaveToggle')?.checked) autoSave();
+  render();
+  // show feedback if already submitted
+  try{ if (state.submitted[qid]) renderFeedback(true); }catch(e){}
+}
+
+function __goMistake(delta){
+  if (!__mistakesMode) return false;
+  __refreshMistakeLoop();
+  if (__mistakeIds.length === 0) return true;
+
+  __mistakePos = (__mistakePos + delta) % __mistakeIds.length;
+  if (__mistakePos < 0) __mistakePos = __mistakeIds.length - 1;
+  gotoQuestionId(__mistakeIds[__mistakePos]);
+  return true;
+}
+
+function toggleMistakesPractice(){
+  __refreshMistakeLoop();
+  if (__mistakeIds.length === 0){
+    alert("No wrong answers yet.");
+    return;
+  }
+
+  const turningOn = !__mistakesMode;
+  __mistakesMode = turningOn;
+
+  const btn = document.getElementById("practiceMistakesBtn");
+  if (btn) btn.textContent = __mistakesMode ? "Back to test" : "Practice mistakes";
+
+  if (turningOn){
+    __returnIndex = state.currentIndex;
+    __mistakePos = 0;
+    gotoQuestionId(__mistakeIds[__mistakePos]);
+  } else {
+    if (__returnIndex !== null && __returnIndex !== undefined){
+      state.currentIndex = __returnIndex;
+      __returnIndex = null;
+      if (document.getElementById('autosaveToggle')?.checked) autoSave();
+      render();
+      try{ renderFeedback(true); }catch(e){}
+    }
+  }
+}
+
+function openMistakesModal(){
+  const modal = document.getElementById("mistakesModal");
+  const list = document.getElementById("mistakesList");
+  const empty = document.getElementById("mistakesEmpty");
+  const subtitle = document.getElementById("mistakesSubtitle");
+  if (!modal || !list || !empty) return;
+
+  const mistakes = __buildMistakes();
+  list.innerHTML = "";
+  if (subtitle){
+    subtitle.textContent = "Shows wrong answers (saved with progress until you reset).";
+  }
+
+  if (mistakes.length === 0){
+    empty.style.display = "block";
+    modal.style.display = "flex";
+    return;
+  }
+  empty.style.display = "none";
+
+  for (const q of mistakes){
+    const qid = q.id;
+    const selected = (getSelectedFor(qid) || []).map(x=>String(x).toUpperCase());
+    const correct = (q.answer || []).map(x=>String(x).toUpperCase());
+    const expl = q.explanation || "";
+    const ref = q.reference || "";
+
+    const opts = __sortedOptions(q);
+    let optsHtml = "";
+    for (const opt of opts){
+      const L = String(opt.label || "").toUpperCase();
+      const txt = opt.text || "";
+      const isSel = selected.includes(L);
+      const isCor = correct.includes(L);
+      const cls = ["opt-item"];
+      if (isCor) cls.push("correct");
+      if (isSel && !isCor) cls.push("selected-wrong");
+      if (isSel && isCor) cls.push("selected-correct");
+      optsHtml += `<div class="${cls.join(" ")}"><span class="opt-letter">${escapeHtml(L)}</span><span class="opt-text">${escapeHtml(txt)}</span></div>`;
+    }
+
+    const card = document.createElement("div");
+    card.className = "mistake-card";
+    card.innerHTML = `
+      <div class="mistake-q">${escapeHtml(q.question || "")}</div>
+      <div class="mistake-opts">${optsHtml}</div>
+      <div class="mistake-meta">
+        <span class="pill bad">Your: ${escapeHtml(selected.join(", ") || "—")}</span>
+        <span class="pill good">Correct: ${escapeHtml(correct.join(", ") || "—")}</span>
+        <button class="ghost" type="button" data-goto="${qid}">Go to question</button>
+      </div>
+      <div class="mistake-exp">
+        <div style="font-weight:900; margin:10px 0 6px;">Explanation:</div>
+        <div class="muted">${expl ? escapeHtml(expl) : "(no explanation provided in source PDF)"}</div>
+        ${ref ? `<div style="margin-top:10px;"><span style="font-weight:900;">References:</span> <span class="muted">${escapeHtml(ref)}</span></div>` : ""}
+      </div>
+    `;
+    card.querySelector("button[data-goto]")?.addEventListener("click", (e)=>{
+      const id = Number(e.currentTarget.getAttribute("data-goto"));
+      closeMistakesModal();
+      gotoQuestionId(id);
+    });
+    list.appendChild(card);
+  }
+
+  modal.style.display = "flex";
+}
+
+function closeMistakesModal(){
+  const modal = document.getElementById("mistakesModal");
+  if (modal) modal.style.display = "none";
+}
+
+function __buildExportRows(mode){
+  const rows = [];
+  for (const qid of state.order){
+    if (!state.submitted[qid]) continue;
+    const q = getQuestionById(qid);
+    if (!q) continue;
+    const ok = isCorrect(qid, q);
+    if (mode === "mistakes" && ok) continue;
+
+    const selected = (getSelectedFor(qid) || []).map(x=>String(x).toUpperCase());
+    const correct = (q.answer || []).map(x=>String(x).toUpperCase());
+
+    const opts = __sortedOptions(q);
+    // map options by letter A..Z
+    const optMap = {};
+    for (const opt of opts){
+      const L = String(opt.label||"").toUpperCase();
+      optMap[L] = opt.text || "";
+    }
+
+    rows.push({
+      id: qid,
+      question: q.question || "",
+      options: optMap,
+      yourAnswer: selected,
+      correctAnswer: correct,
+      isCorrect: ok,
+      explanation: q.explanation || "",
+      reference: q.reference || ""
+    });
+  }
+  return rows;
+}
+
+function exportResultsJSON(mode){
+  const rows = __buildExportRows(mode);
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    quiz: "SPLK-1001",
+    totalQuestions: state.order.length,
+    answered: Object.keys(state.submitted).length,
+    correct: state.correctCount,
+    mode,
+    results: rows
+  };
+  __downloadFile(`splk1001_${mode}_export.json`, JSON.stringify(payload, null, 2), "application/json;charset=utf-8");
+}
+
+function exportResultsCSV(mode){
+  const rows = __buildExportRows(mode);
+  const letters = ["A","B","C","D","E","F","G","H"];
+  const optHeaders = letters.map(l=>`option_${l}`);
+  const header = ["id","question", ...optHeaders, "yourAnswer","correctAnswer","isCorrect","explanation","reference"];
+  const lines = [header.join(",")];
+
+  for (const r of rows){
+    const optCols = letters.map(l => (r.options && r.options[l]) ? r.options[l] : "");
+    lines.push([
+      r.id,
+      r.question,
+      ...optCols,
+      (r.yourAnswer||[]).join("|"),
+      (r.correctAnswer||[]).join("|"),
+      r.isCorrect,
+      r.explanation,
+      r.reference
+    ].map(__csvEscape).join(","));
+  }
+
+  __downloadFile(`splk1001_${mode}_export.csv`, lines.join("\n"), "text/csv;charset=utf-8");
+}
+
+// Hook navigation + submit so practice mode uses wrong-only loop
+(function hookMistakeMode(){
+  try{
+    const _go = go;
+    window.go = function(delta){
+      if (__goMistake(delta)) return;
+      _go(delta);
+    };
+    const _submit = submit;
+    window.submit = function(){
+      _submit();
+      __refreshMistakeLoop();
+    };
+  }catch(e){}
+})();
+
+
+/* =========================
+   Practice mistakes (redo panel)
+   ========================= */
+const MP_KEY = STORAGE_KEY + "_mistakes_redo_panel_v1";
+let __mpIds = [];          // stable list of questions to practice (initially: wrong in main quiz)
+let __mpBaseIds = [];      // persisted base list (so you can practice again even after closing)
+let __mpPos = 0;
+let __mpDraft = {};        // qid -> array of selected labels (your last attempt in the panel)
+let __mpStatus = {};       // qid -> boolean (true=correct, false=incorrect) for your last panel attempt
+let __mpLast = {};         // qid -> 'incorrect' to persist red feedback until corrected
+let __mpReturnIndex = null;
+function __mpLoad(){
+  try{
+    const raw = localStorage.getItem(MP_KEY);
+    if(!raw) return false;
+    const obj = JSON.parse(raw);
+    if(!obj) return false;
+
+    __mpBaseIds = Array.isArray(obj.baseIds) ? obj.baseIds.slice() : [];
+    __mpIds = Array.isArray(obj.ids) ? obj.ids.slice() : (__mpBaseIds.slice());
+    __mpPos = Number.isFinite(obj.pos) ? obj.pos : 0;
+    __mpDraft = obj.draft && typeof obj.draft === "object" ? obj.draft : {};
+    __mpStatus = obj.status && typeof obj.status === "object" ? obj.status : {};
+    __mpReturnIndex = (obj.returnIndex !== undefined && obj.returnIndex !== null) ? obj.returnIndex : null;
+    return true;
+  }catch(e){ return false; }
+}
+function __mpSave(){
+  try{
+    const payload = {
+      ids: __mpIds,
+      baseIds: __mpBaseIds,
+      pos: __mpPos,
+      draft: __mpDraft,
+      status: __mpStatus,
+      returnIndex: __mpReturnIndex,
+      savedAt: nowIso()
+    };
+    localStorage.setItem(MP_KEY, JSON.stringify(payload));
+  }catch(e){}
+}
+function __mpClearStore(){
+  try{ localStorage.removeItem(MP_KEY); }catch(e){}
+}
+
+function __mpNormalize(arr){
+  return (arr||[]).map(x=>String(x).toUpperCase()).sort();
+}
+function __mpIsCorrect(q, selected){
+  const sel = __mpNormalize(selected);
+  const ans = __mpNormalize(q.answer || []);
+  if(sel.length !== ans.length) return false;
+  for(let i=0;i<sel.length;i++) if(sel[i] !== ans[i]) return false;
+  return true;
+}
+function __mpBuildIds(){
+  // Base list: all questions that have been wrong at least once (from the main quiz),
+  // plus anything already in __mpBaseIds (so you can keep practicing across sessions).
+  const wrongNow = [];
+  for (const qid of state.order){
+    if(!state.submitted[qid]) continue;
+    const q = getQuestionById(qid);
+    if(!q) continue;
+
+    const sel = normalizeLabelArr(getSelectedFor(qid));
+    const ans = normalizeLabelArr(q.answer || []);
+    let correct = (sel.length === ans.length);
+    if(correct){
+      for(let i=0;i<sel.length;i++){ if(sel[i] !== ans[i]) { correct=false; break; } }
+    }
+    if(!correct) wrongNow.push(qid);
+  }
+
+  // Merge & de-dup, keep stable order of state.order
+  const set = new Set([...(Array.isArray(__mpBaseIds)?__mpBaseIds:[]), ...wrongNow]);
+  const merged = [];
+  for(const qid of state.order){
+    if(set.has(qid)) merged.push(qid);
+  }
+  __mpBaseIds = merged.slice();
+
+  // The active list to practice is the base list.
+  // We do NOT remove items when you answer correctly; instead we track __mpStatus[qid].
+  __mpIds = __mpBaseIds.slice();
+
+  return __mpIds;
+}
+
+function openMistakesPracticePanel(){
+  const modal = document.getElementById("mistakesPracticeModal");
+  if(!modal) return;
+
+  // remember where you were in the main test
+  __mpReturnIndex = state.currentIndex;
+
+  // ALWAYS start a fresh practice session from the current "wrong in main test" set.
+  // This matches the CCFA behavior: even if you cleared them in the practice panel,
+  // reopening the panel will show all wrong answers again (based on the main quiz state).
+  const freshIds = __mpBuildIds();
+
+  __mpIds = freshIds.slice();
+  __mpPos = 0;
+
+  // clear practice-only state (no hints, no persistence across sessions)
+  __mpDraft = {};
+  __mpStatus = {};
+
+  modal.style.display = "flex";
+  mpRender(true);
+}
+
+function closeMistakesPracticePanel(){
+  const modal = document.getElementById("mistakesPracticeModal");
+  if(modal) modal.style.display = "none";
+  // go back to where you were (main test)
+  if(__mpReturnIndex !== null && __mpReturnIndex !== undefined){
+    state.currentIndex = __mpReturnIndex;
+    __mpReturnIndex = null;
+    if(document.getElementById('autosaveToggle')?.checked) autoSave();
+    render();
+    try{ renderFeedback(true); }catch(e){}
+  }
+  __mpSave();
+}
+
+function mpNav(delta){
+  if(!__mpIds.length) return;
+  __mpPos = (__mpPos + delta) % __mpIds.length;
+  if(__mpPos < 0) __mpPos = __mpIds.length - 1;
+  mpRender();
+  __mpSave();
+}
+
+function mpRender(resetFeedback=false){
+  const pill = document.getElementById("mpCountPill");
+  const qnum = document.getElementById("mpQNum");
+  const qtext = document.getElementById("mpQText");
+  const optsWrap = document.getElementById("mpOptions");
+  const fb = document.getElementById("mpFeedback");
+
+  const empty = document.getElementById("mpEmpty");
+  const prev = document.getElementById("mpPrevBtn");
+  const next = document.getElementById("mpNextBtn");
+  const submitBtn = document.getElementById("mpSubmitBtn");
+
+  if(!optsWrap || !qtext) return;
+
+
+  if(__mpIds.length === 0){
+    if(empty) empty.style.display = "block";
+    if(pill) pill.textContent = "Wrong pending: 0 · 0/0";
+    if(qnum) qnum.textContent = "";
+    qtext.textContent = "";
+    optsWrap.innerHTML = "";
+    if(prev) prev.disabled = true;
+    if(next) next.disabled = true;
+    if(submitBtn) submitBtn.disabled = true;
+    return;
+  }
+  if(empty) empty.style.display = "none";
+  if(prev) prev.disabled = false;
+  if(next) next.disabled = false;
+  if(submitBtn) submitBtn.disabled = false;
+
+  const qid = __mpIds[__mpPos];
+  const q = getQuestionById(qid);
+  if(!q) return;
+
+  if(pill){
+  const pending = __mpIds.filter(id => __mpStatus[id] !== true).length;
+  pill.textContent = `Wrong pending: ${pending} / ${__mpIds.length} · ${__mpPos+1}/${__mpIds.length}`;
+}
+  if(qnum) qnum.textContent = `q${qid}`;
+  qtext.textContent = q.question || "";
+
+  const selected = (__mpDraft[qid] || []).map(x=>String(x).toUpperCase());
+  const opts = __sortedOptions(q);
+  let htmlOpts = "";
+  const multi = isMulti(q);
+
+  for(const opt of opts){
+    const L = String(opt.label||"").toUpperCase();
+    const txt = opt.text || "";
+    const checked = selected.includes(L) ? "checked" : "";
+    const type = multi ? "checkbox" : "radio";
+    htmlOpts += `
+      <label class="opt">
+        <input type="${type}" name="mp_${qid}" value="${escapeHtml(L)}" ${checked}/>
+        <div class="label">${escapeHtml(L)}</div>
+        <div class="txt">${escapeHtml(txt)}</div>
+      </label>
+    `;
+  }
+  optsWrap.innerHTML = htmlOpts;
+
+  // wire inputs
+  optsWrap.querySelectorAll("input").forEach(inp=>{
+    inp.addEventListener("change", ()=>{
+      const all = Array.from(optsWrap.querySelectorAll("input"))
+        .filter(x=>x.checked)
+        .map(x=>String(x.value).toUpperCase());
+      __mpDraft[qid] = all;
+      __mpSave();
+    });
+  });
+  // persist "Incorrect" feedback until this question is corrected (CCFA behavior)
+  if (fb){
+    if(__mpLast[qid] === "incorrect"){
+      const ans = __mpNormalize(q.answer || []);
+      const optMap = Object.fromEntries((q.options || []).map(o => [String(o.label || '').toUpperCase(), o.text || '']));
+      const correctAnswerText = ans.map(label => {
+        const txt = optMap[label] || '';
+        return txt ? `${label}. ${txt}` : label;
+      }).join(ans.length > 1 ? ' · ' : '');
+      fb.style.display = "block";
+      fb.innerHTML = `
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <span class="tag bad">Incorrect</span>
+          <span class="tag neutral">Correct answer: ${escapeHtml(correctAnswerText || ans.join(', '))}</span>
+        </div>
+        <div class="fbtext">${q.explanation ? escapeHtml(q.explanation) : "<span class='muted'>(no explanation provided)</span>"}
+        ${q.reference ? `<div class="muted" style="margin-top:8px;"><b>Reference:</b> ${escapeHtml(q.reference)}</div>` : ""}</div>
+      `;
+    } else {
+      fb.style.display = "none";
+      fb.innerHTML = "";
+    }
+  }
+
+}
+
+function mpSubmit(){
+  if(__mpIds.length === 0) return;
+  const qid = __mpIds[__mpPos];
+  const q = getQuestionById(qid);
+  if(!q) return;
+
+  const selected = (__mpDraft[qid] || []).map(x=>String(x).toUpperCase());
+  const fb = document.getElementById("mpFeedback");
+  if(!selected.length){
+    toast("Select an answer first.");
+    return;
+  }
+
+  const ok = __mpIsCorrect(q, selected);
+
+  // remember last result for persistent feedback
+  __mpLast[qid] = ok ? "correct" : "incorrect";
+
+  // practice-only tracking (does NOT affect main quiz score/progress)
+  __mpStatus[qid] = ok;
+  __mpDraft[qid] = selected;
+
+  if(fb){
+    const ans = __mpNormalize(q.answer || []);
+    const optMap = Object.fromEntries((q.options || []).map(o => [String(o.label || '').toUpperCase(), o.text || '']));
+    const correctAnswerText = ans.map(label => {
+      const txt = optMap[label] || '';
+      return txt ? `${label}. ${txt}` : label;
+    }).join(ans.length > 1 ? ' · ' : '');
+    fb.style.display = "block";
+    fb.innerHTML = `
+      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+        <span class="tag ${ok ? "good" : "bad"}">${ok ? "Correct" : "Incorrect"}</span>
+        ${!ok ? `<span class="tag neutral">Correct answer: ${escapeHtml(correctAnswerText || ans.join(', '))}</span>` : ''}
+      </div>
+      <div class="fbtext">${q.explanation ? escapeHtml(q.explanation) : "<span class='muted'>(no explanation provided)</span>"}
+      ${q.reference ? `<div class="muted" style="margin-top:8px;"><b>Reference:</b> ${escapeHtml(q.reference)}</div>` : ""}</div>
+    `;
+  }
+
+  // CCFA behavior:
+  // - If you answer correctly: remove it from the CURRENT practice list (so it disappears).
+  // - If you answer incorrectly: it stays, and you can try again as many times as you want.
+  if(ok){
+    // correct: remove from this practice list and clear persistent feedback
+    delete __mpLast[qid];
+    __mpIds.splice(__mpPos, 1);
+    if(__mpIds.length === 0){
+      // finished this practice session
+      const pill = document.getElementById("mpCountPill");
+      const qnum = document.getElementById("mpQNum");
+      const qtext = document.getElementById("mpQText");
+      const optsWrap = document.getElementById("mpOptions");
+      if(pill) pill.textContent = "0";
+      if(qnum) qnum.textContent = "All mistakes corrected";
+      if(qtext) qtext.textContent = "Nice. No mistakes left in this practice round.";
+      if(optsWrap) optsWrap.innerHTML = "";
+      // disable nav/submit
+      document.getElementById("mpPrevBtn")?.setAttribute("disabled","disabled");
+      document.getElementById("mpNextBtn")?.setAttribute("disabled","disabled");
+      document.getElementById("mpSubmitBtn")?.setAttribute("disabled","disabled");
+      return;
+    }
+    if(__mpPos >= __mpIds.length) __mpPos = 0;
+    setTimeout(()=>{ mpRender(); }, 150);
+    return;
+  }
+
+  // incorrect: stay on same question, show persistent red feedback until corrected
+  __mpSave();
+  return;
+}
+
+
+
+// wire panel UI once DOM is ready
+document.addEventListener("DOMContentLoaded", ()=>{
+  const close = document.getElementById("closeMistakesPracticeModal");
+  const modal = document.getElementById("mistakesPracticeModal");
+  const prev = document.getElementById("mpPrevBtn");
+  const next = document.getElementById("mpNextBtn");
+  const submitBtn = document.getElementById("mpSubmitBtn");
+  if(close) close.addEventListener("click", closeMistakesPracticePanel);
+  if(prev) prev.addEventListener("click", ()=>mpNav(-1));
+  if(next) next.addEventListener("click", ()=>mpNav(1));
+  if(submitBtn) submitBtn.addEventListener("click", mpSubmit);
+  if(modal) modal.addEventListener("click", (e)=>{ if(e.target === modal) closeMistakesPracticePanel(); });
+});
+
+// Ensure reset clears panel state too
+try{
+  const _resetAll = resetAll;
+  window.resetAll = function(){
+    _resetAll();
+    __mpIds = []; __mpBaseIds = []; __mpPos = 0; __mpDraft = {}; __mpStatus = {}; __mpReturnIndex = null;
+    __mpClearStore();
+  };
+}catch(e){}
+
+function setupMistakesUI(){
+  const reviewBtn = document.getElementById("reviewMistakesBtn");
+  const practiceBtn = document.getElementById("practiceMistakesBtn");
+  const closeBtn = document.getElementById("closeMistakesModal");
+  const modal = document.getElementById("mistakesModal");
+
+  if (reviewBtn) reviewBtn.addEventListener('click', openMistakesModal);
+  if (practiceBtn) practiceBtn.addEventListener('click', openMistakesPracticePanel);
+  if (closeBtn) closeBtn.addEventListener('click', closeMistakesModal);
+  if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeMistakesModal(); });
+
+  const emj = document.getElementById("exportMistakesJsonBtn");
+  const emc = document.getElementById("exportMistakesCsvBtn");
+  const eaj = document.getElementById("exportAllJsonBtn");
+  const eac = document.getElementById("exportAllCsvBtn");
+  if (emj) emj.addEventListener('click', ()=>exportResultsJSON("mistakes"));
+  if (emc) emc.addEventListener('click', ()=>exportResultsCSV("mistakes"));
+  if (eaj) eaj.addEventListener('click', ()=>exportResultsJSON("all"));
+  if (eac) eac.addEventListener('click', ()=>exportResultsCSV("all"));
+}
+
+function mpGo(delta){
+  if(!__mpIds || __mpIds.length === 0) return;
+  __mpPos = (__mpPos + delta) % __mpIds.length;
+  if(__mpPos < 0) __mpPos = __mpIds.length - 1;
+  mpRender();
+  __mpSave();
+}
+
+function setupMistakesPracticeUI(){
+  const modal = document.getElementById("mistakesPracticeModal");
+  const closeBtn = document.getElementById("closeMistakesPracticeModal");
+  const prev = document.getElementById("mpPrevBtn");
+  const next = document.getElementById("mpNextBtn");
+  const submit = document.getElementById("mpSubmitBtn");
+
+  if (closeBtn) closeBtn.addEventListener("click", closeMistakesPracticePanel);
+  if (modal) modal.addEventListener("click", (e)=>{ if (e.target === modal) closeMistakesPracticePanel(); });
+
+  if (prev) prev.addEventListener("click", ()=>mpGo(-1));
+  if (next) next.addEventListener("click", ()=>mpGo(1));
+  if (submit) submit.addEventListener("click", mpSubmit);
+}
+
+/* ===== End Mistakes / Export / Practice Mode ===== */
+
+window.addEventListener('DOMContentLoaded', () => {
+
+setupMistakesUI();
+setupMistakesPracticeUI();
+
+(function init() {
+  state = freshState();
+  let hasSaved = false;
+  try { hasSaved = !!localStorage.getItem(STORAGE_KEY); } catch(e) {}
+
+  if (hasSaved) {
+    const modal = document.getElementById('loadModal');
+    modal.style.display = 'flex';
+    document.getElementById('modalLoad').onclick = () => {
+      modal.style.display = 'none';
+      if (!tryLoad()) {
+        state = freshState();
+        render();
+      }
+    };
+    document.getElementById('modalSkip').onclick = () => {
+      modal.style.display = 'none';
+      state = freshState();
+      autoSave();
+      render();
+    };
+  } else {
+    render();
+  }
+})()
+
+});
+;
+</script>
+
+<!-- Mistakes / Review Modal -->
+<div id="mistakesModal" class="modal" style="display:none;">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mistakesTitle">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="mistakesTitle">Mistakes</div>
+        <div class="modal-sub" id="mistakesSubtitle">Saved with your progress until you reset.</div>
+      </div>
+      <button class="ghost" type="button" id="closeMistakesModal">Close</button>
+    </div>
+    <div class="modal-actions">
+      <button class="ghost" type="button" id="exportMistakesJsonBtn">Export mistakes (JSON)</button>
+      <button class="ghost" type="button" id="exportMistakesCsvBtn">Export mistakes (CSV)</button>
+      <button class="ghost" type="button" id="exportAllJsonBtn">Export all (JSON)</button>
+      <button class="ghost" type="button" id="exportAllCsvBtn">Export all (CSV)</button>
+    </div>
+    <div class="modal-body">
+      <div id="mistakesEmpty" class="muted" style="display:none; padding:10px 0;">No mistakes yet.</div>
+      <div id="mistakesList" class="mistakes-list"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Mistakes Practice (Redo) Modal -->
+<div id="mistakesPracticeModal" style="display:none;">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mpTitle">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="mpTitle">Redo mistakes</div>
+        <div class="modal-sub">Re-answer only the questions you got wrong. Your global score does not change.</div>
+      </div>
+      <button class="ghost" type="button" id="closeMistakesPracticeModal">Back to quiz</button>
+    </div>
+
+    <div class="modal-actions">
+      <div class="pill" id="mpCountPill">Wrong pending: 0 · 0/0</div>
+      <span style="flex:1 1 auto;"></span>
+      <button class="ghost" type="button" id="mpPrevBtn">← Previous</button>
+      <button class="ghost" type="button" id="mpNextBtn">Next →</button>
+      <button class="primary" type="button" id="mpSubmitBtn">Submit</button>
+    </div>
+
+    <div class="modal-body">
+      <div id="mpEmpty" class="muted" style="display:none; padding:10px 0;">No wrong answers to redo 🎉</div>
+
+      <div class="qtop" style="margin-top:6px;">
+        <div>
+          <div class="qnum" id="mpQNum"></div>
+          <div class="qtext" id="mpQText"></div>
+          <div class="hint" id="mpHint"></div>
+        </div>
+      </div>
+
+      <div class="opts" id="mpOptions" style="margin-top:12px;"></div>
+      <div class="feedback" id="mpFeedback" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
